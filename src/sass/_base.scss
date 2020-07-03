@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  //font-size: 62.5%;
+}
+
+body {
+  //line-height: 1.6;
+  background: #343a40;
+}
+
+//.container {
+//  display: grid;
+//  grid-template-rows: 8rem min-content;
+//  grid-template-columns:
+//          [sidebar-start navbar-start]
+//          20vw
+//          [sidebar-end full-start]
+//          1fr
+//          [full-end navbar-end];
+//}

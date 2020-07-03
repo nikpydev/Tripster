@@ -1,0 +1,6 @@
+.nav-tabs {
+  grid-row: navbar-start / navbar-end;
+  display: grid;
+  grid-template-columns: repeat(7, max-content);
+  grid-column-gap: 2rem;
+}
