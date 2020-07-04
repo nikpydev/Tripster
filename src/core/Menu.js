@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import {Link, withRouter} from "react-router-dom";
+import {isAuthenticated, logout} from "../auth/helper"
 
 const currentTab = (history, path) => {
     if (history.location.pathname === path) {
@@ -26,6 +27,26 @@ function Menu({history}) {
                 <li className="nav-item">
                     <Link
                         className="nav-link"
+                        to={"/flights"}
+                        style={currentTab(history, "/flights")}
+                    >
+                        Flights
+                    </Link>
+                </li>
+
+                <li className="nav-item">
+                    <Link
+                        className="nav-link"
+                        to={"/hotels"}
+                        style={currentTab(history, "/hotels")}
+                    >
+                        Hotels
+                    </Link>
+                </li>
+
+                <li className="nav-item">
+                    <Link
+                        className="nav-link"
                         to={"/cart"}
                         style={currentTab(history, "/cart")}
                     >
@@ -33,55 +54,69 @@ function Menu({history}) {
                     </Link>
                 </li>
 
-                <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        to={"/user/dashboard"}
-                        style={currentTab(history, "/user/dashboard")}
-                    >
-                        User Dashboard
-                    </Link>
-                </li>
+                {isAuthenticated() && isAuthenticated().user.role === 0 && (
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link"
+                            to={"/user/dashboard"}
+                            style={currentTab(history, "/user/dashboard")}
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                )}
 
-                <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        to={"/admin/dashboard"}
-                        style={currentTab(history, "/admin/dashboard")}
-                    >
-                        Admin Dashboard
-                    </Link>
-                </li>
+                {isAuthenticated() && isAuthenticated().user.role === 1 && (
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link"
+                            to={"/admin/dashboard"}
+                            style={currentTab(history, "/admin/dashboard")}
+                        >
+                            Admin Dashboard
+                        </Link>
+                    </li>
+                )}
 
-                <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        to={"/register"}
-                        style={currentTab(history, "/register")}
-                    >
-                        Register
-                    </Link>
-                </li>
+                {!isAuthenticated() && (
+                    <Fragment>
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link"
+                                to={"/register"}
+                                style={currentTab(history, "/register")}
+                            >
+                                Register
+                            </Link>
+                        </li>
 
-                <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        to={"/login"}
-                        style={currentTab(history, "/login")}
-                    >
-                        Login
-                    </Link>
-                </li>
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link"
+                                to={"/login"}
+                                style={currentTab(history, "/login")}
+                            >
+                                Login
+                            </Link>
+                        </li>
+                    </Fragment>
+                )}
 
-                <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        to={"/logout"}
-                        style={currentTab(history, "/logout")}
-                    >
-                        Logout
-                    </Link>
-                </li>
+                {isAuthenticated() && (
+                    <li className="nav-item">
+                        <span
+                            className={"nav-link text-warning"}
+                            style={{"cursor": "pointer"}}
+                            onClick={() => {
+                                logout(() => {
+                                    history.push("/")
+                                })
+                            }}
+                        >
+                            Logout
+                        </span>
+                    </li>
+                )}
             </ul>
         </div>
     );
