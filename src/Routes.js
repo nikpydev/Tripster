@@ -13,6 +13,8 @@ import PrivateRoute from "./auth/helper/PrivateRoutes";
 import AddFlightCategory from "./admin/AddFlightCategory";
 import AddHotelCategory from "./admin/AddHotelCategory";
 import AddHotel from "./admin/AddHotel";
+import ManageHotels from "./admin/ManageHotels";
+import UpdateHotel from "./admin/UpdateHotel";
 
 function Routes(props) {
     return (
@@ -28,6 +30,8 @@ function Routes(props) {
                 <AdminRoute path={"/admin/create/flight-category"} exact component={AddFlightCategory}/>
                 <AdminRoute path={"/admin/create/hotel-category"} exact component={AddHotelCategory}/>
                 <AdminRoute path={"/admin/create/hotel"} exact component={AddHotel}/>
+                <AdminRoute path={"/admin/hotels"} exact component={ManageHotels}/>
+                <AdminRoute path={"/admin/hotel/update/:hotelId"} exact component={UpdateHotel}/>
                 <PrivateRoute path={"/user/dashboard"} exact component={UserDashboard}/>
             </Switch>
         </BrowserRouter>
