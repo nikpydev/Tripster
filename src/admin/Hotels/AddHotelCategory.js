@@ -1,27 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import Base from "../core/Base";
-import {isAuthenticated} from "../auth/helper";
+import React, {useState} from 'react';
+import Base from "../../core/Base";
+import {isAuthenticated} from "../../auth/helper";
 import {Link} from "react-router-dom";
-import {getHotelCategory, updateHotelCategory} from "./helper/adminapicalls";
+import {createHotelCategory} from "../helper/adminapicalls";
 
-function UpdateHotelCategory({match}) {
-    const [hotelCategoryName, setHotelCategoryName] = useState("");
-    const [error, setError] = useState("");
+function AddHotelCategory() {
+    const [categoryName, setCategoryName] = useState("");
+    const [error, setError] = useState(undefined);
     const [success, setSuccess] = useState(false);
 
     const {user: {_id}, token} = isAuthenticated()
-
-    const preload = (hotelCategoryId) => {
-        getHotelCategory(hotelCategoryId)
-            .then(data => {
-                setHotelCategoryName(data.name)
-            })
-    }
-
-    useEffect(() => {
-        preload(match.params.hotelCategoryId)
-    }, []);
-
 
     const goBack = () => {
         return (
@@ -33,25 +21,27 @@ function UpdateHotelCategory({match}) {
         )
     }
 
-    const handleChange = (event) => {
-        setError("")
-        setHotelCategoryName(event.target.value)
+    const handleChange = event => {
+        setError(undefined);
+        setCategoryName(event.target.value);
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        setError("")
-        setSuccess(false)
+    const handleSubmit = event => {
+        event.preventDefault();
+        setError(undefined);
+        setSuccess(false);
 
         // Backend request firing
-        updateHotelCategory(match.params.hotelCategoryId, _id, token, {name: hotelCategoryName})
+        createHotelCategory(_id, token, {name: categoryName})
             .then(data => {
-                if (data.error) {
-                    setError(data.error)
-                } else {
-                    setError("")
-                    setSuccess(true)
-                    setHotelCategoryName("")
+                if (data) {
+                    if (data.error) {
+                        setError(data.error);
+                    } else {
+                        setError(undefined);
+                        setSuccess(true);
+                        setCategoryName("");
+                    }
                 }
             })
     }
@@ -60,7 +50,7 @@ function UpdateHotelCategory({match}) {
         if (success) {
             return (
                 <h4 className="text-success">
-                    Category updated successfully
+                    Category created successfully
                 </h4>
             )
         }
@@ -70,33 +60,33 @@ function UpdateHotelCategory({match}) {
         if (error) {
             return (
                 <h4 className={"text-warning"}>
-                    {`Failed to update hotel category: ${error}`}
+                    {`Failed to create category: ${error}`}
                 </h4>
             )
         }
     }
 
-    const myCategoryForm = () => {
+    const myHotelCategoryForm = () => {
         return (
             <form>
                 <div className="form-group">
                     <p className="lead">
-                        Enter a name for your hotel category.
+                        Enter the name of your Hotel Category.
                     </p>
                     <input
                         type="text"
                         className={"form-control my-3"}
                         onChange={handleChange}
-                        value={hotelCategoryName}
+                        value={categoryName}
                         autoFocus
                         required
-                        placeholder={"For e.g. Summer"}
+                        placeholder={"For e.g. 5-Star"}
                     />
                     <button
                         className="btn btn-outline-info"
                         onClick={handleSubmit}
                     >
-                        Update Category
+                        Create Hotel Category
                     </button>
                 </div>
             </form>
@@ -105,15 +95,15 @@ function UpdateHotelCategory({match}) {
 
     return (
         <Base
-            title={"Update a hotel category here"}
-            description={"Update an existing hotel category"}
+            title={"Create a category here"}
+            description={"Add a new Hotel category"}
             className={"container bg-info p-4"}
         >
             <div className="row bg-white rounded">
                 <div className="col-md-8 offset-md-2">
                     {successMessage()}
                     {warningMessage()}
-                    {myCategoryForm()}
+                    {myHotelCategoryForm()}
                     {goBack()}
                 </div>
             </div>
@@ -121,4 +111,4 @@ function UpdateHotelCategory({match}) {
     );
 }
 
-export default UpdateHotelCategory;
+export default AddHotelCategory;

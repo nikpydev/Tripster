@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import ImageHelper from "./helper/ImageHelper";
+import ImageHelper from "../helper/ImageHelper";
 import {Redirect} from "react-router-dom";
-import {addItemToCart, removeItemFromCart} from "./helper/cartHelper";
+import {addItemToCart, removeItemFromCart} from "../helper/cartHelper";
 
 function HotelCard({
                        hotel,
@@ -11,7 +11,7 @@ function HotelCard({
                        setReload
                    }) {
     const [redirect, setRedirect] = useState(false);
-    const [count, setCount] = useState(hotel ? hotel.count : 0);
+    // const [count, setCount] = useState(hotel ? hotel.count : 0);
 
     const cardTitle1 = hotel ? hotel.brand : undefined;
     const cardTitle2 = hotel ? hotel.name : undefined;
@@ -37,7 +37,7 @@ function HotelCard({
                     onClick={addHotelToCart}
                     className="btn btn-block btn-outline-success mt-2 mb-2"
                 >
-                    Add To Cart
+                    Book Now
                 </button>
             )
         )
@@ -60,27 +60,27 @@ function HotelCard({
     }
 
     return (
-        <div className="card-container-parent">
-            <div className={"card-container"}>
-                <div className="card-container__image-column">
-                    <div className="card-container__image-box">
+        <div className="hotel-card-container-parent">
+            <div className={"hotel-card-container"}>
+                <div className="hotel-card-container__image-column">
+                    <div className="hotel-card-container__image-box">
                         <ImageHelper hotel={hotel ? hotel : undefined}/>
                     </div>
 
-                    <div className="card-container__product-name">
+                    <div className="hotel-card-container__product-name">
                         {cardTitle1} {cardTitle2}
                     </div>
                 </div>
 
-                <p className="card-container__product-description">
+                <p className="hotel-card-container__product-description">
                     {cardDescription}
                 </p>
 
-                <p className="card-container__product-price">
-                    $ {cardPrice}
+                <p className="hotel-card-container__product-price">
+                    ₹ {cardPrice}
                 </p>
 
-                <div className="card-container__add-or-remove-item">
+                <div className="hotel-card-container__add-or-remove-item">
                     <div className="col-12">
                         {showAddToCart(addToCart)}
                     </div>

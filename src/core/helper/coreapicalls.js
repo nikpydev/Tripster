@@ -11,3 +11,15 @@ export const getAllHotels = () => {
             console.log("getAllHotels() Error: ", err);
         })
 }
+
+export const getAllFlights = () => {
+    return fetch(`${API}/flights`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log("getAllFlights() Error: ", err);
+        })
+}

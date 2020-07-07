@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import Base from "./Base";
-import {getAllHotels} from "./helper/coreapicalls";
+import Base from "../Base";
+import {getAllHotels} from "../helper/coreapicalls";
 import HotelCard from "./HotelCard";
 
-function Hotel(props) {
+function Hotel() {
     const [hotels, setHotels] = useState([]);
     const [error, setError] = useState(undefined);
 

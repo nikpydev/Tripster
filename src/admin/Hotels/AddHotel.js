@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import Base from "../core/Base";
+import React, {useEffect, useState} from 'react';
+import {isAuthenticated} from "../../auth/helper";
+import {createHotel, getAllHotelCategories} from "../helper/adminapicalls";
+import Base from "../../core/Base";
 import {Link} from "react-router-dom";
-import {getAllFlightCategories, getFlight, updateFlight} from "./helper/adminapicalls";
-import {isAuthenticated} from "../auth/helper";
 
-function UpdateFlight({match}) {
+function AddHotel(props) {
     const {user: {_id}, token} = isAuthenticated();
-
     const [values, setValues] = useState({
         brand: "",
         name: "",
@@ -14,14 +13,16 @@ function UpdateFlight({match}) {
         description: "",
         categories: [],
         category: "",
-        source: "",
-        destination: "",
-        total_seats_count: "",
-        seats_remaining: "",
+        city: "",
+        street_address: "",
+        total_rooms: 0,
+        rooms_available: 0,
+        photo: "",
         loading: false,
-        error: "",
-        createdFlight: "",
+        error: undefined,
+        createdHotel: undefined,
         didRedirect: false,
+        formData: undefined
     });
 
     const {
@@ -31,105 +32,71 @@ function UpdateFlight({match}) {
         description,
         categories,
         category,
-        source,
-        destination,
-        total_seats_count,
-        seats_remaining,
+        city,
+        street_address,
+        total_rooms,
+        rooms_available,
         photo,
         loading,
         error,
-        createdFlight,
+        createdHotel,
         didRedirect,
+        formData
     } = values;
 
-    const preload = productId => {
-        getFlight(productId)
+    const preload = () => {
+        getAllHotelCategories()
             .then(data => {
-                console.log("getFlight: ", data)
+                console.log("getAllHotelCategories: ", data);
                 if (data) {
                     if (data.error) {
                         setValues({...values, error: data.error})
                     } else {
-                        preloadFlightCategories();
-
-                        setValues({
-                            ...values,
-                            brand: data.brand,
-                            name: data.name,
-                            price: data.price,
-                            description: data.description,
-                            source: data.source,
-                            destination: data.destination,
-                            total_seats_count: data.total_seats_count,
-                            seats_remaining: data.seats_remaining,
-                            loading: false,
-                            error: "",
-                            createdFlight: data.name,
-                            didRedirect: false,
-                        })
-                        console.log("VALUES: ", values)
-                    }
-                }
-            })
-    }
-
-    const preloadFlightCategories = () => {
-        getAllFlightCategories()
-            .then(data => {
-                if (data) {
-                    if (data.error) {
-                        setValues({...values, error: data.error})
-                    } else {
-                        setValues({
-                            categories: data,
-                        })
+                        setValues({...values, categories: data, formData: new FormData()})
                     }
                 }
             })
     }
 
     useEffect(() => {
-        console.log("match.params: ", match.params.flightId);
-        preload(match.params.flightId)
+        preload();
     }, []);
 
     const handleChange = key => event => {
-        const value = event.target.value;
-        // formData.set(key, value);
-        setValues({
-            ...values,
-            [key]: value
-        })
+        const value = key === "photo" ? event.target.files[0] : event.target.value;
+        formData.set(key, value);
+        setValues({...values, [key]: value})
     }
 
     const handleSubmit = event => {
         event.preventDefault();
         setValues({...values, error: undefined, loading: true});
-
-        updateFlight(match.params.flightId, _id, token, values)
+        createHotel(_id, token, formData)
             .then(data => {
-                if (!data) {
-                    setValues({
-                        ...values,
-                        createdFlight: undefined,
-                        error: "Couldn't Update"
-                    })
-                } else {
-                    setValues({
-                        ...values,
-                        brand: "",
-                        name: "",
-                        price: "",
-                        description: "",
-                        source: "",
-                        destination: "",
-                        total_seats_count: "",
-                        seats_remaining: "",
-                        loading: false,
-                        error: "",
-                        createdFlight: data.name,
-                        didRedirect: false,
-                    })
+                if (data) {
+                    if (data.error) {
+                        setValues({
+                            ...values,
+                            createdHotel: undefined,
+                            error: data.error
+                        })
+                    } else {
+                        setValues({
+                            ...values,
+                            brand: "",
+                            name: "",
+                            price: "",
+                            description: "",
+                            city: "",
+                            street_address: "",
+                            total_rooms: 0,
+                            photo: "",
+                            loading: false,
+                            error: undefined,
+                            createdHotel: data.name,
+                            didRedirect: false,
+                        })
+                    }
                 }
             })
             .catch(err => {
@@ -141,9 +108,9 @@ function UpdateFlight({match}) {
         return (
             <div
                 className="alert alert-success mt-3"
-                style={{display: createdFlight ? "" : "none"}}
+                style={{display: createdHotel ? "" : "none"}}
             >
-                <h4>{createdFlight} updated successfully</h4>
+                <h4>{createdHotel} created successfully</h4>
             </div>
         )
     }
@@ -154,14 +121,26 @@ function UpdateFlight({match}) {
                 className="alert alert-warning mt-3"
                 style={{display: error ? "" : "none"}}
             >
-                <h4>Couldn't update flight</h4>
+                <h4>Couldn't create hotel: {error}</h4>
             </div>
         )
     }
 
-    const createFlightForm = () => (
+    const createHotelForm = () => (
         <form>
-            <div className="form-group mt-3">
+            <span>Post photo</span>
+            <div className="form-group">
+                <label className="btn btn-block btn-success">
+                    <input
+                        onChange={handleChange("photo")}
+                        type="file"
+                        name="photo"
+                        accept="image"
+                        placeholder="choose a file"
+                    />
+                </label>
+            </div>
+            <div className="form-group">
                 <input
                     onChange={handleChange("brand")}
                     name="brand"
@@ -199,27 +178,27 @@ function UpdateFlight({match}) {
             </div>
             <div className="form-group">
                 <input
-                    onChange={handleChange("source")}
+                    onChange={handleChange("city")}
                     className="form-control"
-                    placeholder="Source"
-                    value={source}
+                    placeholder="City"
+                    value={city}
                 />
             </div>
             <div className="form-group">
                 <input
-                    onChange={handleChange("destination")}
+                    onChange={handleChange("street_address")}
                     className="form-control"
-                    placeholder="Destination"
-                    value={destination}
+                    placeholder="Street Address"
+                    value={street_address}
                 />
             </div>
             <div className="form-group">
                 <input
-                    onChange={handleChange("total_seats_count")}
+                    onChange={handleChange("total_rooms")}
                     type="number"
                     className="form-control"
-                    placeholder="Total Seats Count"
-                    value={total_seats_count}
+                    placeholder="Total Rooms"
+                    value={total_rooms}
                 />
             </div>
             <div className="form-group">
@@ -241,11 +220,11 @@ function UpdateFlight({match}) {
             </div>
             <div className="form-group">
                 <input
-                    onChange={handleChange("seats_remaining")}
+                    onChange={handleChange("rooms_available")}
                     type="number"
                     className="form-control"
-                    placeholder="Seats Remaining"
-                    value={seats_remaining}
+                    placeholder="Rooms Available"
+                    value={rooms_available}
                 />
             </div>
 
@@ -254,15 +233,15 @@ function UpdateFlight({match}) {
                 onClick={handleSubmit}
                 className="btn btn-outline-success mb-3"
             >
-                Create Flight
+                Create Hotel
             </button>
         </form>
     );
 
     return (
         <Base
-            title={"Update a flight here!"}
-            description={"This is the flight update section"}
+            title={"Add a hotel here!"}
+            description={"This is the hotel creation section"}
             className={"container bg-info p-4"}
         >
             <Link
@@ -275,11 +254,11 @@ function UpdateFlight({match}) {
                 <div className="col-md-8 offset-md-2">
                     {successMessage()}
                     {warningMessage()}
-                    {createFlightForm()}
+                    {createHotelForm()}
                 </div>
             </div>
         </Base>
     );
 }
 
-export default UpdateFlight;
+export default AddHotel;

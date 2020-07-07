@@ -1,22 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import Base from "../core/Base";
+import Base from "../../core/Base";
 import {Link} from "react-router-dom";
-import {isAuthenticated} from "../auth/helper";
-import {deleteFlight, getAllFlights} from "./helper/adminapicalls";
+import {isAuthenticated} from "../../auth/helper";
+import {deleteHotel, getAllHotels} from "../helper/adminapicalls";
 
-function ManageFlights() {
-    const [flights, setFlights] = useState([]);
+function ManageHotels() {
+    const [hotels, setHotels] = useState([]);
 
     const {user: {_id}, token} = isAuthenticated();
 
     const preload = () => {
-        getAllFlights()
+        getAllHotels()
             .then(data => {
                 if (data) {
                     if (data.error) {
                         console.log(data.error)
                     } else {
-                        setFlights(data);
+                        setHotels(data);
                     }
                 }
             })
@@ -26,8 +26,8 @@ function ManageFlights() {
         preload();
     }, []);
 
-    const deleteOneFlight = productId => {
-        deleteFlight(productId, _id, token)
+    const deleteOneHotel = productId => {
+        deleteHotel(productId, _id, token)
             .then(data => {
                 if (data) {
                     if (data.error) {
@@ -43,25 +43,25 @@ function ManageFlights() {
     }
 
     return (
-        <Base title="Welcome admin" description="Manage flights here">
-            <h2 className="mb-4">All flights:</h2>
+        <Base title="Welcome admin" description="Manage hotels here">
+            <h2 className="mb-4">All hotels:</h2>
             <Link className="btn btn-info" to={`/admin/dashboard`}>
                 <span className="">Admin Home</span>
             </Link>
             <div className="row">
                 <div className="col-12">
-                    <h2 className="text-center text-white my-3">Total {flights.length} flights</h2>
+                    <h2 className="text-center text-white my-3">Total {hotels.length} hotels</h2>
 
-                    {flights.map((flight, index) => {
+                    {hotels.map((hotel, index) => {
                         return (
                             <div key={index} className="row text-center mb-2 ">
                                 <div className="col-4">
-                                    <h3 className="text-white text-left">{flight.brand} {flight.name}</h3>
+                                    <h3 className="text-white text-left">{hotel.brand} {hotel.name}</h3>
                                 </div>
                                 <div className="col-4">
                                     <Link
                                         className="btn btn-success"
-                                        to={`/admin/flight/update/${flight._id}`}
+                                        to={`/admin/hotel/update/${hotel._id}`}
                                     >
                                         <span
                                             className=""
@@ -72,7 +72,7 @@ function ManageFlights() {
                                 </div>
                                 <div className="col-4">
                                     <button onClick={() => {
-                                        deleteOneFlight(flight._id)
+                                        deleteOneHotel(hotel._id)
                                     }} className="btn btn-danger">
                                         Delete
                                     </button>
@@ -86,4 +86,4 @@ function ManageFlights() {
     );
 }
 
-export default ManageFlights;
+export default ManageHotels;

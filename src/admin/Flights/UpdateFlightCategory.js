@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
-import Base from "../core/Base";
-import {isAuthenticated} from "../auth/helper";
+import React, {useEffect, useState} from 'react';
+import Base from "../../core/Base";
+import {isAuthenticated} from "../../auth/helper";
 import {Link} from "react-router-dom";
-import {createHotelCategory} from "./helper/adminapicalls";
+import {getFlightCategory, updateFlightCategory} from "../helper/adminapicalls";
 
-function AddHotelCategory() {
-    const [categoryName, setCategoryName] = useState("");
-    const [error, setError] = useState(undefined);
+function UpdateFlightCategory({match}) {
+    const [flightCategoryName, setFlightCategoryName] = useState("");
+    const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
 
     const {user: {_id}, token} = isAuthenticated()
+
+    const preload = (flightCategoryId) => {
+        getFlightCategory(flightCategoryId)
+            .then(data => {
+                setFlightCategoryName(data.name)
+            })
+    }
+
+    useEffect(() => {
+        preload(match.params.flightCategoryId)
+    }, []);
+
 
     const goBack = () => {
         return (
@@ -21,27 +33,25 @@ function AddHotelCategory() {
         )
     }
 
-    const handleChange = event => {
-        setError(undefined);
-        setCategoryName(event.target.value);
+    const handleChange = (event) => {
+        setError("")
+        setFlightCategoryName(event.target.value)
     }
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        setError(undefined);
-        setSuccess(false);
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        setError("")
+        setSuccess(false)
 
         // Backend request firing
-        createHotelCategory(_id, token, {name: categoryName})
+        updateFlightCategory(match.params.flightCategoryId, _id, token, {name: flightCategoryName})
             .then(data => {
-                if (data) {
-                    if (data.error) {
-                        setError(data.error);
-                    } else {
-                        setError(undefined);
-                        setSuccess(true);
-                        setCategoryName("");
-                    }
+                if (data.error) {
+                    setError(data.error)
+                } else {
+                    setError("")
+                    setSuccess(true)
+                    setFlightCategoryName("")
                 }
             })
     }
@@ -50,7 +60,7 @@ function AddHotelCategory() {
         if (success) {
             return (
                 <h4 className="text-success">
-                    Category created successfully
+                    Category updated successfully
                 </h4>
             )
         }
@@ -60,33 +70,33 @@ function AddHotelCategory() {
         if (error) {
             return (
                 <h4 className={"text-warning"}>
-                    {`Failed to create category: ${error}`}
+                    {`Failed to update flight category: ${error}`}
                 </h4>
             )
         }
     }
 
-    const myHotelCategoryForm = () => {
+    const myCategoryForm = () => {
         return (
             <form>
                 <div className="form-group">
                     <p className="lead">
-                        Enter the name of your Hotel Category.
+                        Enter a name for your flight category.
                     </p>
                     <input
                         type="text"
                         className={"form-control my-3"}
                         onChange={handleChange}
-                        value={categoryName}
+                        value={flightCategoryName}
                         autoFocus
                         required
-                        placeholder={"For e.g. 5-Star"}
+                        placeholder={"For e.g. Summer"}
                     />
                     <button
                         className="btn btn-outline-info"
                         onClick={handleSubmit}
                     >
-                        Create Hotel Category
+                        Update Category
                     </button>
                 </div>
             </form>
@@ -95,15 +105,15 @@ function AddHotelCategory() {
 
     return (
         <Base
-            title={"Create a category here"}
-            description={"Add a new Hotel category"}
+            title={"Update a flight category here"}
+            description={"Update an existing flight category"}
             className={"container bg-info p-4"}
         >
             <div className="row bg-white rounded">
                 <div className="col-md-8 offset-md-2">
                     {successMessage()}
                     {warningMessage()}
-                    {myHotelCategoryForm()}
+                    {myCategoryForm()}
                     {goBack()}
                 </div>
             </div>
@@ -111,4 +121,4 @@ function AddHotelCategory() {
     );
 }
 
-export default AddHotelCategory;
+export default UpdateFlightCategory;

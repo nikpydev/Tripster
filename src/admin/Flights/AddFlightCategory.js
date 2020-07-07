@@ -1,27 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import Base from "../core/Base";
-import {isAuthenticated} from "../auth/helper";
+import React, {useState} from 'react';
+import Base from "../../core/Base";
+import {isAuthenticated} from "../../auth/helper";
 import {Link} from "react-router-dom";
-import {getFlightCategory, updateFlightCategory} from "./helper/adminapicalls";
+import {createFlightCategory} from "../helper/adminapicalls";
 
-function UpdateFlightCategory({match}) {
-    const [flightCategoryName, setFlightCategoryName] = useState("");
-    const [error, setError] = useState("");
+function AddFlightCategory() {
+    const [categoryName, setCategoryName] = useState("");
+    const [error, setError] = useState(undefined);
     const [success, setSuccess] = useState(false);
 
     const {user: {_id}, token} = isAuthenticated()
-
-    const preload = (flightCategoryId) => {
-        getFlightCategory(flightCategoryId)
-            .then(data => {
-                setFlightCategoryName(data.name)
-            })
-    }
-
-    useEffect(() => {
-        preload(match.params.flightCategoryId)
-    }, []);
-
 
     const goBack = () => {
         return (
@@ -33,25 +21,27 @@ function UpdateFlightCategory({match}) {
         )
     }
 
-    const handleChange = (event) => {
-        setError("")
-        setFlightCategoryName(event.target.value)
+    const handleChange = event => {
+        setError(undefined);
+        setCategoryName(event.target.value);
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        setError("")
-        setSuccess(false)
+    const handleSubmit = event => {
+        event.preventDefault();
+        setError(undefined);
+        setSuccess(false);
 
         // Backend request firing
-        updateFlightCategory(match.params.flightCategoryId, _id, token, {name: flightCategoryName})
+        createFlightCategory(_id, token, {name: categoryName})
             .then(data => {
-                if (data.error) {
-                    setError(data.error)
-                } else {
-                    setError("")
-                    setSuccess(true)
-                    setFlightCategoryName("")
+                if (data) {
+                    if (data.error) {
+                        setError(data.error);
+                    } else {
+                        setError(undefined);
+                        setSuccess(true);
+                        setCategoryName("");
+                    }
                 }
             })
     }
@@ -60,7 +50,7 @@ function UpdateFlightCategory({match}) {
         if (success) {
             return (
                 <h4 className="text-success">
-                    Category updated successfully
+                    Category created successfully
                 </h4>
             )
         }
@@ -70,33 +60,33 @@ function UpdateFlightCategory({match}) {
         if (error) {
             return (
                 <h4 className={"text-warning"}>
-                    {`Failed to update flight category: ${error}`}
+                    {`Failed to create category: ${error}`}
                 </h4>
             )
         }
     }
 
-    const myCategoryForm = () => {
+    const myFlightCategoryForm = () => {
         return (
             <form>
                 <div className="form-group">
                     <p className="lead">
-                        Enter a name for your flight category.
+                        Enter the name of your Flight Category.
                     </p>
                     <input
                         type="text"
                         className={"form-control my-3"}
                         onChange={handleChange}
-                        value={flightCategoryName}
+                        value={categoryName}
                         autoFocus
                         required
-                        placeholder={"For e.g. Summer"}
+                        placeholder={"For e.g. Domestic"}
                     />
                     <button
                         className="btn btn-outline-info"
                         onClick={handleSubmit}
                     >
-                        Update Category
+                        Create Flight Category
                     </button>
                 </div>
             </form>
@@ -105,15 +95,15 @@ function UpdateFlightCategory({match}) {
 
     return (
         <Base
-            title={"Update a flight category here"}
-            description={"Update an existing flight category"}
+            title={"Create a Flight category here"}
+            description={"Add a new Flight category"}
             className={"container bg-info p-4"}
         >
             <div className="row bg-white rounded">
                 <div className="col-md-8 offset-md-2">
                     {successMessage()}
                     {warningMessage()}
-                    {myCategoryForm()}
+                    {myFlightCategoryForm()}
                     {goBack()}
                 </div>
             </div>
@@ -121,4 +111,4 @@ function UpdateFlightCategory({match}) {
     );
 }
 
-export default UpdateFlightCategory;
+export default AddFlightCategory;

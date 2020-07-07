@@ -30,12 +30,24 @@ hr {
   width: 100%;
   background-color: #FFF; }
 
-.card-container {
+.hotel-card-container {
   display: grid;
   grid-template-columns: 2fr 2fr 0.5fr 1fr;
   grid-column-gap: 1rem;
   justify-items: center;
   align-items: center; }
-  .card-container__image-column {
+  .hotel-card-container__image-column {
     font-size: 2rem;
     text-align: center; }
+
+.flight-card-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 0.5fr repeat(3, 1fr);
+  grid-column-gap: 1rem;
+  justify-items: center;
+  align-items: center;
+  font-size: 1.5rem; }
+
+.to-text {
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem; }
