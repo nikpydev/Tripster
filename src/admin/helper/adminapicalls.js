@@ -37,6 +37,12 @@ export const getFlightCategory = categoryId => {
 // Get all Flight Categories:-
 export const getAllFlightCategories = () => {
     return fetch(`${API}/flight-categories`)
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 // Update a Flight Category:-
@@ -164,15 +170,18 @@ export const createFlight = (userId, token, productDetails) => {
         method: "POST",
         headers: {
             Accept: "application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
         },
-        body: productDetails
+        body: JSON.stringify(productDetails)
+        // body: productDetails
     })
         .then(response => {
+            console.log("RESPONSE: ", response)
             return response.json()
         })
         .catch(err => {
-            console.log(err)
+            console.log("ERROR: ", err.toString())
         })
 }
 
@@ -189,7 +198,7 @@ export const getAllFlights = () => {
         })
 }
 
-// Get a product
+// Get a Flight
 export const getFlight = (productId) => {
     return fetch(`${API}/flight/${productId}`, {
         method: "GET"
@@ -208,9 +217,10 @@ export const updateFlight = (productId, userId, token, productDetails) => {
         method: "PUT",
         headers: {
             Accept: "application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
         },
-        body: productDetails
+        body: JSON.stringify(productDetails)
     })
         .then(response => {
             console.log("Admin API call", response)
@@ -258,7 +268,7 @@ export const createHotel = (userId, token, productDetails) => {
         })
 }
 
-// Get all Flights
+// Get all Hotels
 export const getAllHotels = () => {
     return fetch(`${API}/hotels`, {
         method: "GET"
@@ -271,7 +281,7 @@ export const getAllHotels = () => {
         })
 }
 
-// Get a product
+// Get a Hotel
 export const getHotel = (productId) => {
     return fetch(`${API}/hotel/${productId}`, {
         method: "GET"
@@ -284,7 +294,7 @@ export const getHotel = (productId) => {
         })
 }
 
-// Update a Flight
+// Update a Hotel
 export const updateHotel = (productId, userId, token, productDetails) => {
     return fetch(`${API}/hotel/${productId}/${userId}`, {
         method: "PUT",
@@ -303,7 +313,7 @@ export const updateHotel = (productId, userId, token, productDetails) => {
         })
 }
 
-// Delete a Flight
+// Delete a Hotel
 export const deleteHotel = (productId, userId, token) => {
     return fetch(`${API}/hotel/${productId}/${userId}`, {
         method: "DELETE",

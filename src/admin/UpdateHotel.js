@@ -20,10 +20,10 @@ function UpdateHotel({match}) {
         rooms_available: 0,
         photo: "",
         loading: false,
-        error: undefined,
-        createdHotel: undefined,
+        error: "",
+        createdHotel: "",
         didRedirect: false,
-        formData: undefined
+        formData: ""
     });
 
     const {
@@ -103,14 +103,14 @@ function UpdateHotel({match}) {
 
     const handleSubmit = event => {
         event.preventDefault();
-        setValues({...values, error: undefined, loading: true});
+        setValues({...values, error: "", loading: true});
 
         updateHotel(match.params.hotelId, _id, token, formData)
             .then(data => {
                 if (!data) {
                     setValues({
                         ...values,
-                        createdHotel: undefined,
+                        createdHotel: "",
                         error: "Couldn't Update"
                     })
                 } else {
@@ -125,7 +125,7 @@ function UpdateHotel({match}) {
                         total_rooms: 0,
                         photo: "",
                         loading: false,
-                        error: undefined,
+                        error: "",
                         createdHotel: data.name,
                         didRedirect: false,
                     })

@@ -15,6 +15,13 @@ import AddHotelCategory from "./admin/AddHotelCategory";
 import AddHotel from "./admin/AddHotel";
 import ManageHotels from "./admin/ManageHotels";
 import UpdateHotel from "./admin/UpdateHotel";
+import AddFlight from "./admin/AddFlight";
+import ManageFlights from "./admin/ManageFlight";
+import UpdateFlight from "./admin/UpdateFlight";
+import ManageFlightCategories from "./admin/ManageFlightCategories";
+import ManageHotelCategories from "./admin/ManageHotelCategories";
+import UpdateFlightCategory from "./admin/UpdateFlightCategory";
+import UpdateHotelCategory from "./admin/UpdateHotelCategory";
 
 function Routes(props) {
     return (
@@ -30,8 +37,15 @@ function Routes(props) {
                 <AdminRoute path={"/admin/create/flight-category"} exact component={AddFlightCategory}/>
                 <AdminRoute path={"/admin/create/hotel-category"} exact component={AddHotelCategory}/>
                 <AdminRoute path={"/admin/create/hotel"} exact component={AddHotel}/>
+                <AdminRoute path={"/admin/create/flight"} exact component={AddFlight}/>
                 <AdminRoute path={"/admin/hotels"} exact component={ManageHotels}/>
+                <AdminRoute path={"/admin/flights"} exact component={ManageFlights}/>
                 <AdminRoute path={"/admin/hotel/update/:hotelId"} exact component={UpdateHotel}/>
+                <AdminRoute path={"/admin/flight/update/:flightId"} exact component={UpdateFlight}/>
+                <AdminRoute path={"/admin/flight-categories"} exact component={ManageFlightCategories}/>
+                <AdminRoute path={"/admin/hotel-categories"} exact component={ManageHotelCategories}/>
+                <AdminRoute path={"/admin/flight-category/update/:flightCategoryId"} exact component={UpdateFlightCategory}/>
+                <AdminRoute path={"/admin/hotel-category/update/:hotelCategoryId"} exact component={UpdateHotelCategory}/>
                 <PrivateRoute path={"/user/dashboard"} exact component={UserDashboard}/>
             </Switch>
         </BrowserRouter>

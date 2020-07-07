@@ -1,67 +1,62 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Base from "../core/Base";
 import {Link} from "react-router-dom";
 import {isAuthenticated} from "../auth/helper";
-import {deleteHotel, getAllHotels} from "./helper/adminapicalls";
+import {deleteHotelCategory, getAllHotelCategories} from "./helper/adminapicalls";
 
-function ManageHotels() {
-    const [hotels, setHotels] = useState([]);
+function ManageHotelCategories() {
+    const [hotelCategories, setHotelCategories] = useState([]);
 
-    const {user: {_id}, token} = isAuthenticated();
+    const {user: {_id}, token} = isAuthenticated()
 
     const preload = () => {
-        getAllHotels()
+        getAllHotelCategories()
             .then(data => {
-                if (data) {
-                    if (data.error) {
-                        console.log(data.error)
-                    } else {
-                        setHotels(data);
-                    }
+                if (data.error) {
+                    console.log(data.error)
+                } else {
+                    console.log(data)
+                    setHotelCategories(data)
                 }
             })
     }
 
     useEffect(() => {
-        preload();
+        preload()
     }, []);
 
-    const deleteOneHotel = productId => {
-        deleteHotel(productId, _id, token)
+    const deleteOneCategory = categoryId => {
+        deleteHotelCategory(categoryId, _id, token)
             .then(data => {
-                if (data) {
-                    if (data.error) {
-                        console.log(data.error);
-                    } else {
-                        preload();
-                    }
+                if (data.error) {
+                    console.log("deleteOneCategory", data.error)
+                } else {
+                    preload()
                 }
             })
-            .catch(err => {
-                console.log(err);
-            })
+            .catch()
     }
 
     return (
-        <Base title="Welcome admin" description="Manage hotels here">
-            <h2 className="mb-4">All hotels:</h2>
+        <Base title="Welcome admin" description="Manage hotelCategories here">
+            <h2 className="mb-4">All products:</h2>
             <Link className="btn btn-info" to={`/admin/dashboard`}>
                 <span className="">Admin Home</span>
             </Link>
             <div className="row">
                 <div className="col-12">
-                    <h2 className="text-center text-white my-3">Total {hotels.length} hotels</h2>
+                    <h2 className="text-center text-white my-3">Total {hotelCategories.length} products</h2>
 
-                    {hotels.map((hotel, index) => {
+                    {hotelCategories.map((hotelCategory, index) => {
                         return (
                             <div key={index} className="row text-center mb-2 ">
                                 <div className="col-4">
-                                    <h3 className="text-white text-left">{hotel.brand} {hotel.name}</h3>
+                                    <h3 className="text-white text-left">{hotelCategory.name}</h3>
                                 </div>
                                 <div className="col-4">
                                     <Link
                                         className="btn btn-success"
-                                        to={`/admin/hotel/update/${hotel._id}`}
+                                        to={`/admin/hotel-category/update/${hotelCategory._id}`}
                                     >
                                         <span
                                             className=""
@@ -72,7 +67,7 @@ function ManageHotels() {
                                 </div>
                                 <div className="col-4">
                                     <button onClick={() => {
-                                        deleteOneHotel(hotel._id)
+                                        deleteOneCategory(hotelCategory._id)
                                     }} className="btn btn-danger">
                                         Delete
                                     </button>
@@ -86,4 +81,4 @@ function ManageHotels() {
     );
 }
 
-export default ManageHotels;
+export default ManageHotelCategories;

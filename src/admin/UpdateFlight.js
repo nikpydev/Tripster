@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {isAuthenticated} from "../auth/helper";
-import {createFlight, getAllFlightCategories} from "./helper/adminapicalls";
+import React, {useState, useEffect} from 'react';
 import Base from "../core/Base";
 import {Link} from "react-router-dom";
+import {getAllFlightCategories, getFlight, updateFlight} from "./helper/adminapicalls";
+import {isAuthenticated} from "../auth/helper";
 
-function AddFlight() {
+function UpdateFlight({match}) {
     const {user: {_id}, token} = isAuthenticated();
 
     const [values, setValues] = useState({
@@ -42,16 +42,45 @@ function AddFlight() {
         didRedirect,
     } = values;
 
-    const preload = () => {
+    const preload = productId => {
+        getFlight(productId)
+            .then(data => {
+                console.log("getFlight: ", data)
+                if (data) {
+                    if (data.error) {
+                        setValues({...values, error: data.error})
+                    } else {
+                        preloadFlightCategories();
+
+                        setValues({
+                            ...values,
+                            brand: data.brand,
+                            name: data.name,
+                            price: data.price,
+                            description: data.description,
+                            source: data.source,
+                            destination: data.destination,
+                            total_seats_count: data.total_seats_count,
+                            seats_remaining: data.seats_remaining,
+                            loading: false,
+                            error: "",
+                            createdFlight: data.name,
+                            didRedirect: false,
+                        })
+                        console.log("VALUES: ", values)
+                    }
+                }
+            })
+    }
+
+    const preloadFlightCategories = () => {
         getAllFlightCategories()
             .then(data => {
-                console.log("getAllFlightCategories: ", data);
                 if (data) {
                     if (data.error) {
                         setValues({...values, error: data.error})
                     } else {
                         setValues({
-                            ...values,
                             categories: data,
                         })
                     }
@@ -60,7 +89,8 @@ function AddFlight() {
     }
 
     useEffect(() => {
-        preload();
+        console.log("match.params: ", match.params.flightId);
+        preload(match.params.flightId)
     }, []);
 
     const handleChange = key => event => {
@@ -74,34 +104,32 @@ function AddFlight() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        setValues({...values, error: "", loading: true});
-        createFlight(_id, token, values)
+        setValues({...values, error: undefined, loading: true});
+
+        updateFlight(match.params.flightId, _id, token, values)
             .then(data => {
-                console.log("DATA: ", data)
-                if (data) {
-                    if (data.error) {
-                        setValues({
-                            ...values,
-                            createdFlight: "",
-                            error: data.error
-                        })
-                    } else {
-                        setValues({
-                            ...values,
-                            brand: "",
-                            name: "",
-                            price: "",
-                            description: "",
-                            source: "",
-                            destination: "",
-                            total_seats_count: "",
-                            seats_remaining: "",
-                            loading: false,
-                            error: "",
-                            createdFlight: data.name,
-                            didRedirect: false,
-                        })
-                    }
+                if (!data) {
+                    setValues({
+                        ...values,
+                        createdFlight: undefined,
+                        error: "Couldn't Update"
+                    })
+                } else {
+                    setValues({
+                        ...values,
+                        brand: "",
+                        name: "",
+                        price: "",
+                        description: "",
+                        source: "",
+                        destination: "",
+                        total_seats_count: "",
+                        seats_remaining: "",
+                        loading: false,
+                        error: "",
+                        createdFlight: data.name,
+                        didRedirect: false,
+                    })
                 }
             })
             .catch(err => {
@@ -115,7 +143,7 @@ function AddFlight() {
                 className="alert alert-success mt-3"
                 style={{display: createdFlight ? "" : "none"}}
             >
-                <h4>{createdFlight} created successfully</h4>
+                <h4>{createdFlight} updated successfully</h4>
             </div>
         )
     }
@@ -126,7 +154,7 @@ function AddFlight() {
                 className="alert alert-warning mt-3"
                 style={{display: error ? "" : "none"}}
             >
-                <h4>Couldn't create flight: {error}</h4>
+                <h4>Couldn't update flight</h4>
             </div>
         )
     }
@@ -233,8 +261,8 @@ function AddFlight() {
 
     return (
         <Base
-            title={"Add a flight here!"}
-            description={"This is the flight creation section"}
+            title={"Update a flight here!"}
+            description={"This is the flight update section"}
             className={"container bg-info p-4"}
         >
             <Link
@@ -254,4 +282,4 @@ function AddFlight() {
     );
 }
 
-export default AddFlight;
+export default UpdateFlight;
