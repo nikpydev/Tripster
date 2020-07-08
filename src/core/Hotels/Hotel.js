@@ -33,7 +33,7 @@ function Hotel() {
                 </div>
 
                 <div className="hotel-content col-10">
-                    <hr style={{"background-color": "white"}}/>
+                    <hr style={{"backgroundColor": "white"}}/>
 
                     {hotels.map((hotel, index) => {
                         return (

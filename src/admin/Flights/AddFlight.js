@@ -30,16 +30,16 @@ function AddFlight() {
         price,
         description,
         categories,
-        category,
+        // category,
         source,
         destination,
         total_seats_count,
         seats_remaining,
-        photo,
-        loading,
+        // photo,
+        // loading,
         error,
         createdFlight,
-        didRedirect,
+        // didRedirect,
     } = values;
 
     const preload = () => {
@@ -201,8 +201,9 @@ function AddFlight() {
                 >
                     <option>Select</option>
                     {categories && categories.map((category, index) => {
+                        const {_id} = category;
                         return (
-                            <option key={index} value={category._id}>
+                            <option key={index} value={_id}>
                                 {category.name}
                             </option>
                         )

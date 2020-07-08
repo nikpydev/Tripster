@@ -67,33 +67,34 @@ function Flight() {
                 </div>
 
                 <div className="flight-content col-10">
+                    {error}
                     {userSelectionForm()}
                     <hr style={{"backgroundColor": "white"}}/>
 
                     {flights.map((flight, index) => {
                         if (source && destination && flight.source === source && flight.destination === destination) {
-                            console.log("Inside 1st if block")
+                            // console.log("Inside 1st if block")
                             return (
                                 <div className="mb-4" key={index}>
                                     <FlightCard flight={flight}/>
                                 </div>
                             )
                         } else if (!destination && source && flight.source === source) {
-                            console.log("Inside 2nd if block")
+                            // console.log("Inside 2nd if block")
                             return (
                                 <div className="mb-4" key={index}>
                                     <FlightCard flight={flight}/>
                                 </div>
                             )
                         } else if (!source && destination && flight.destination === destination) {
-                            console.log("Inside 3rd if block")
+                            // console.log("Inside 3rd if block")
                             return (
                                 <div className="mb-4" key={index}>
                                     <FlightCard flight={flight}/>
                                 </div>
                             )
                         } else if (!source && !destination) {
-                            console.log("Inside else block")
+                            // console.log("Inside else block")
                             return (
                                 <div className="mb-4" key={index}>
                                     <FlightCard flight={flight}/>

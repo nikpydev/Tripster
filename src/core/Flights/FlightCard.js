@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {Redirect} from "react-router-dom";
 import {addItemToCart, removeItemFromCart} from "../helper/cartHelper";
 
@@ -10,13 +12,23 @@ function FlightCard({
                         setReload
                     }) {
     const [redirect, setRedirect] = useState(false);
+
+    // Dates to be selected
+    const [startDate, setStartDate] = useState(new Date());
+
     // const [count, setCount] = useState(flight ? flight.count : 0);
+    
+    // For showing or hiding the "book now" section
+    const [showBookNow, setShowBookNow] = useState(false);
 
     const cardTitle1 = flight ? flight.brand : "";
     const cardTitle2 = flight ? flight.name : "";
     const cardSource = flight ? flight.source : "";
     const cardDestination = flight ? flight.destination : "";
     const cardPrice = flight ? flight.price : "";
+
+    // console.log("FLIGHT: ", flight)
+    // const {_id} = flight;
 
     const addFlightToCart = () => {
         addItemToCart(flight, () => {
@@ -34,10 +46,12 @@ function FlightCard({
         return (
             addToCart && (
                 <button
-                    onClick={addFlightToCart}
+                    onClick={() => {
+                        setShowBookNow(!showBookNow)
+                    }}
                     className="btn btn-block btn-outline-success mt-2 mb-2"
                 >
-                    Book Now
+                    {showBookNow ? "Collapse" : "Book Now"}
                 </button>
             )
         )
@@ -53,10 +67,14 @@ function FlightCard({
                     }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                 >
-                    Remove From Cart
+                    Delete
                 </button>
             )
         )
+    }
+
+    const handleChange = date => {
+        setStartDate(date);
     }
 
     return (
@@ -90,6 +108,24 @@ function FlightCard({
                         {showRemoveFromCart(removeFromCart)}
                     </div>
                 </div>
+
+                {showBookNow && (
+                    <div className="select-travel-date">
+                        <h4>
+                            Select travel date
+                        </h4>
+                        <DatePicker
+                            selected={startDate}
+                            onChange={handleChange}
+                        />
+                        <button
+                            onClick={addFlightToCart}
+                            className="btn btn-block btn-outline-success mt-2 mb-2"
+                        >
+                            Add Flight to Cart
+                        </button>
+                    </div>
+                )}
 
             </div>
             <hr/>

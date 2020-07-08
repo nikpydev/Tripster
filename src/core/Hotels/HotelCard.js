@@ -53,7 +53,7 @@ function HotelCard({
                     }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                 >
-                    Remove From Cart
+                    Delete
                 </button>
             )
         )
