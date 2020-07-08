@@ -4,25 +4,37 @@ import {createFlight, getAllFlightCategories} from "../helper/adminapicalls";
 import Base from "../../core/Base";
 import {Link} from "react-router-dom";
 
+import 'rc-time-picker/assets/index.css';
+import TimePicker from 'react-time-picker';
+
+// const showSecond = true;
+// const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+
+
 function AddFlight() {
     const {user: {_id}, token} = isAuthenticated();
 
     const [values, setValues] = useState({
-        brand: "",
-        name: "",
-        price: "",
-        description: "",
+        brand: "Bhadralok",
+        name: "MK-1",
+        price: "1200",
+        description: "Indian cheap flight",
         categories: [],
         category: "",
-        source: "",
-        destination: "",
-        total_seats_count: "",
-        seats_remaining: "",
+        source: "Pune",
+        destination: "Kolkata",
+        departure_time: "",
+        arrival_time: "",
+        total_seats_count: "120",
+        seats_remaining: "12",
         loading: false,
         error: "",
         createdFlight: "",
         didRedirect: false,
     });
+
+    // const [departureTime, setDepartureTime] = useState("");
+    // const [arrivalTime, setArrivalTime] = useState("");
 
     const {
         brand,
@@ -33,6 +45,8 @@ function AddFlight() {
         // category,
         source,
         destination,
+        departure_time,
+        arrival_time,
         total_seats_count,
         seats_remaining,
         // photo,
@@ -64,12 +78,21 @@ function AddFlight() {
     }, []);
 
     const handleChange = key => event => {
-        const value = event.target.value;
+        const value = (
+            key === "departure_time" || key === "arrival_time"
+        ) ? event : event.target.value;
         setValues({
             ...values,
             [key]: value
         })
     }
+
+    // const handleTimeSet = key => time => {
+    //     setValues({
+    //         ...values,
+    //         [key]: time
+    //     })
+    // }
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -93,6 +116,8 @@ function AddFlight() {
                             description: "",
                             source: "",
                             destination: "",
+                            departure_time: "",
+                            arrival_time: "",
                             total_seats_count: "",
                             seats_remaining: "",
                             loading: false,
@@ -125,7 +150,7 @@ function AddFlight() {
                 className="alert alert-warning mt-3"
                 style={{display: error ? "" : "none"}}
             >
-                <h4>Couldn't create flight: {error}</h4>
+                <h4>Couldn't create flight</h4>
             </div>
         )
     }
@@ -182,6 +207,34 @@ function AddFlight() {
                     className="form-control"
                     placeholder="Destination"
                     value={destination}
+                />
+            </div>
+            <div className="form-group">
+                <p>Set Departure Time</p>
+                <TimePicker
+                    onChange={handleChange("departure_time")}
+                    value={departure_time}
+                    format={"HH:mm"}
+                    minTime={"00:00:00"}
+                    maxTime={"23:59:59"}
+                    hourPlaceholder={"HH"}
+                    minutePlaceholder={"mm"}
+                    clockIcon={null}
+                    disableClock={true}
+                />
+            </div>
+            <div className="form-group">
+                <p>Set Arrival Time</p>
+                <TimePicker
+                    onChange={handleChange("arrival_time")}
+                    value={arrival_time}
+                    format={"HH:mm"}
+                    minTime={"00:00:00"}
+                    maxTime={"23:59:59"}
+                    hourPlaceholder={"HH"}
+                    minutePlaceholder={"mm"}
+                    clockIcon={null}
+                    disableClock={true}
                 />
             </div>
             <div className="form-group">
@@ -248,6 +301,12 @@ function AddFlight() {
                     {successMessage()}
                     {warningMessage()}
                     {createFlightForm()}
+                    {/*Error:*/}
+                    {/*{JSON.stringify(values.error)}*/}
+                    {/*Departure Time:*/}
+                    {/*{JSON.stringify(values.departure_time)}*/}
+                    {/*Arrival Time:*/}
+                    {/*{JSON.stringify(values.arrival_time)}*/}
                 </div>
             </div>
         </Base>

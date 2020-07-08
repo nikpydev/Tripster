@@ -13,7 +13,7 @@ function FlightCard({
                     }) {
     const [redirect, setRedirect] = useState(false);
 
-    // Dates to be selected
+    // Journey Date
     const [startDate, setStartDate] = useState(new Date());
 
     // const [count, setCount] = useState(flight ? flight.count : 0);
@@ -24,7 +24,9 @@ function FlightCard({
     const cardTitle1 = flight ? flight.brand : "";
     const cardTitle2 = flight ? flight.name : "";
     const cardSource = flight ? flight.source : "";
+    const cardDeparture = flight ? flight.departure_time : "";
     const cardDestination = flight ? flight.destination : "";
+    const cardArrival = flight ? flight.arrival_time : "";
     const cardPrice = flight ? flight.price : "";
 
     // console.log("FLIGHT: ", flight)
@@ -36,11 +38,11 @@ function FlightCard({
         })
     }
 
-    const getRedirected = redirect => {
-        if (redirect) {
-            return <Redirect to={"/cart"}/>
-        }
-    }
+    // const getRedirected = redirect => {
+    //     if (redirect) {
+    //         return <Redirect to={"/cart"}/>
+    //     }
+    // }
 
     const showAddToCart = addToCart => {
         return (
@@ -85,6 +87,7 @@ function FlightCard({
                 </div>
 
                 <div className="flight-card-container__source">
+                    <div>{cardDeparture}</div>
                     {cardSource}
                 </div>
 
@@ -93,6 +96,7 @@ function FlightCard({
                 </div>
 
                 <div className="flight-card-container__destination">
+                    <div>{cardArrival}</div>
                     {cardDestination}
                 </div>
 
@@ -119,7 +123,11 @@ function FlightCard({
                             onChange={handleChange}
                         />
                         <button
-                            onClick={addFlightToCart}
+                            onClick={() => {
+                                setShowBookNow(!showBookNow);
+                                flight.travel_date = startDate;
+                                addFlightToCart();
+                            }}
                             className="btn btn-block btn-outline-success mt-2 mb-2"
                         >
                             Add Flight to Cart

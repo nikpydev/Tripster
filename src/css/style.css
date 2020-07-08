@@ -39,6 +39,13 @@ hr {
   .hotel-card-container__image-column {
     font-size: 2rem;
     text-align: center; }
+  .hotel-card-container .booking-section {
+    display: grid;
+    grid-column: 1 / -1;
+    margin: 1.5rem 0; }
+    .hotel-card-container .booking-section .select-dates {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); }
 
 .flight-card-container {
   display: grid;

@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 import ImageHelper from "../helper/ImageHelper";
 import {Redirect} from "react-router-dom";
 import {addItemToCart, removeItemFromCart} from "../helper/cartHelper";
@@ -10,8 +13,15 @@ function HotelCard({
                        reload,
                        setReload
                    }) {
+    // For showing or hiding the "book now" section
+    const [showBookNow, setShowBookNow] = useState(false);
+
     const [redirect, setRedirect] = useState(false);
     // const [count, setCount] = useState(hotel ? hotel.count : 0);
+
+    // Stay Dates
+    const [checkInDate, setCheckInDate] = useState(new Date());
+    const [checkOutDate, setCheckOutDate] = useState(new Date());
 
     const cardTitle1 = hotel ? hotel.brand : undefined;
     const cardTitle2 = hotel ? hotel.name : undefined;
@@ -34,10 +44,12 @@ function HotelCard({
         return (
             addToCart && (
                 <button
-                    onClick={addHotelToCart}
+                    onClick={() => {
+                        setShowBookNow(!showBookNow)
+                    }}
                     className="btn btn-block btn-outline-success mt-2 mb-2"
                 >
-                    Book Now
+                    {showBookNow ? "Collapse" : "Book Now"}
                 </button>
             )
         )
@@ -57,6 +69,14 @@ function HotelCard({
                 </button>
             )
         )
+    }
+
+    const handleChange = key => date => {
+        if (key === "checkInDate") {
+            setCheckInDate(date);
+        } else if (key === "checkOutDate") {
+            setCheckOutDate(date);
+        }
     }
 
     return (
@@ -88,6 +108,48 @@ function HotelCard({
                         {showRemoveFromCart(removeFromCart)}
                     </div>
                 </div>
+
+                {showBookNow && (
+                    <div className="booking-section">
+                        <div className="select-dates">
+                            <div className="checkin-date">
+                                <h4>
+                                    Select check-in date
+                                </h4>
+                                <DatePicker
+                                    selected={checkInDate}
+                                    onChange={handleChange("checkInDate")}
+                                    showTimeSelect
+                                    dateFormat={"Pp"}
+                                />
+                            </div>
+
+                            <div className="checkout-date">
+                                <h4>
+                                    Select check-out date
+                                </h4>
+                                <DatePicker
+                                    selected={checkOutDate}
+                                    onChange={handleChange("checkOutDate")}
+                                    showTimeSelect
+                                    dateFormat={"Pp"}
+                                />
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={() => {
+                                setShowBookNow(!showBookNow);
+                                hotel.checkin_datetime = checkInDate;
+                                hotel.checkout_datetime = checkOutDate;
+                                addHotelToCart();
+                            }}
+                            className="btn btn-block btn-outline-success mt-2 mb-2"
+                        >
+                            Add Hotel to Cart
+                        </button>
+                    </div>
+                )}
 
             </div>
             <hr/>
