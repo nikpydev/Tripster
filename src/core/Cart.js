@@ -26,6 +26,7 @@ function Cart() {
                 <hr/>
                 {products.map((product, index) => {
                     return (
+                        // If the product has a 'source' attribute then it's a Flight else it's a Hotel
                         product.source ? (
                             <FlightCard
                                 key={index}
@@ -73,6 +74,13 @@ function Cart() {
                     <h3>
                         Integrate Payment Gateway here👇
                     </h3>
+
+                    <button
+                        onClick={() => {}}
+                        className="btn btn-block btn-outline-success mt-4 mb-2"
+                    >
+                        Place Order
+                    </button>
                     {/*<h2>*/}
                     {/*    <PaymentB*/}
                     {/*        products={products}*/}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {Redirect} from "react-router-dom";
+// import {Redirect} from "react-router-dom";
 import {addItemToCart, removeItemFromCart} from "../helper/cartHelper";
 
 function FlightCard({
@@ -16,8 +16,11 @@ function FlightCard({
     // Journey Date
     const [startDate, setStartDate] = useState(new Date());
 
+    // Number of Seats
+    const [seatCount, setSeatCount] = useState(0);
+
     // const [count, setCount] = useState(flight ? flight.count : 0);
-    
+
     // For showing or hiding the "book now" section
     const [showBookNow, setShowBookNow] = useState(false);
 
@@ -75,15 +78,38 @@ function FlightCard({
         )
     }
 
-    const handleChange = date => {
-        setStartDate(date);
+    const handleDateChange = date => {
+        setStartDate(date)
+    }
+
+    const handleSeatCountChange = event => {
+        setSeatCount(event.target.value);
+    }
+
+    const getDay = dayNumber => {
+        switch (dayNumber) {
+            case 1:
+                return "Monday"
+            case 2:
+                return "Tuesday"
+            case 3:
+                return "Wednesday"
+            case 4:
+                return "Thursday"
+            case 5:
+                return "Friday"
+            case 6:
+                return "Saturday"
+            default:
+                return "Sunday"
+        }
     }
 
     return (
         <div className="flight-card-container-parent">
             <div className={"flight-card-container"}>
                 <div className="flight-card-container__product-name">
-                    {cardTitle1} {cardTitle2}
+                    ✈ {cardTitle1} {cardTitle2}
                 </div>
 
                 <div className="flight-card-container__source">
@@ -114,24 +140,54 @@ function FlightCard({
                 </div>
 
                 {showBookNow && (
-                    <div className="select-travel-date">
-                        <h4>
-                            Select travel date
-                        </h4>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={handleChange}
-                        />
+                    <div className="select-travel-details">
+                        <div className="select-travel-date">
+                            <h4>
+                                Select travel date
+                            </h4>
+                            <DatePicker
+                                selected={startDate}
+                                onChange={handleDateChange}
+                                dateFormat={"dd/MM/yyyy"}
+                            />
+                        </div>
+                        <div className="select-seat-count">
+                            <h4>
+                                Select no. of seats
+                            </h4>
+                            <input
+                                onChange={handleSeatCountChange}
+                                className="form-control"
+                                placeholder="Enter seat count"
+                                value={seatCount}
+                            />
+                        </div>
                         <button
                             onClick={() => {
                                 setShowBookNow(!showBookNow);
-                                flight.travel_date = startDate;
+                                flight.travel_date =
+                                    startDate.getDate()
+                                    + "/" + startDate.getMonth()
+                                    + "/" + startDate.getFullYear()
+                                    + " on " + getDay(startDate.getDay());
+                                flight.seats_booked = seatCount;
                                 addFlightToCart();
                             }}
-                            className="btn btn-block btn-outline-success mt-2 mb-2"
+                            className="submit-booking btn btn-block btn-outline-success mt-2 mb-2"
                         >
                             Add Flight to Cart
                         </button>
+                    </div>
+                )}
+
+                {removeFromCart && (
+                    <div className="travel-details">
+                        <div className="travel-date">
+                            📅 DATE OF TRAVEL:→ {flight.travel_date}
+                        </div>
+                        <div className="seats-booked">
+                            💺 NO. OF SEATS BOOKED:→ {flight.seats_booked}
+                        </div>
                     </div>
                 )}
 

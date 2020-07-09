@@ -12,8 +12,40 @@
   letter-spacing: 0.1rem;
 }
 
-.select-travel-date {
+.select-travel-details {
   grid-column: 1 / -1;
   justify-self: center;
   margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1rem;
+
+  .select-travel-date {
+    grid-column: 1 / span 1;
+  }
+
+  .select-seat-count {
+    grid-column: 2 / span 1;
+  }
+
+  .submit-booking {
+    grid-column: 1 / -1;
+  }
+}
+
+.travel-details {
+  grid-column: 1 / -1;
+  display: grid;
+
+  .travel-date {
+    margin: 1.5rem 0;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .seats-booked {
+    margin-bottom: 0.5rem;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
 }
