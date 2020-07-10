@@ -1,10 +1,10 @@
 import React from 'react';
 import {API} from "../../backend";
+import {isAuthenticated} from "../../auth/helper";
 
-function ImageHelper({hotel}) {
-    const imageURL = hotel
-        ? `${API}/hotel/photo/${hotel._id}`
-        : undefined
+function DPHelper() {
+    const {user: {_id}} = isAuthenticated();
+    const imageURL = `${API}/user/photo/${_id}`;
 
     return (
         <figure className="image-container rounded border border-success p-2">
@@ -18,4 +18,4 @@ function ImageHelper({hotel}) {
     );
 }
 
-export default ImageHelper;
+export default DPHelper;

@@ -35,3 +35,19 @@ export const updateUser = (userId, token, userDetails) => {
             console.log("ERROR: ", err)
         })
 }
+
+export const getUserDP = (userId, token) => {
+    return fetch(`${API}/user/photo/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response
+        })
+        .catch(err => {
+            console.log("ERROR: ", err)
+        })
+}

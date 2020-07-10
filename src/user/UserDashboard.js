@@ -1,19 +1,24 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Base from "../core/Base";
 import {isAuthenticated} from "../auth/helper";
 import {Link} from "react-router-dom";
-import {getUser} from "./helper/userapicalls";
+import DPHelper from "./helper/DPHelper";
+import {getUserDP} from "./helper/userapicalls";
 
 function UserDashboard() {
-    const {user : {
-        fName,
-        lName,
-        email,
-        // role
-    }} = isAuthenticated()
+    const {
+        user: {
+            _id,
+            fName,
+            lName,
+            email,
+            // role
+        },
+        token
+    } = isAuthenticated()
 
     const userLeftSide = () => {
-        return(
+        return (
             <div className={"card"}>
                 <h4 className="card-header bg-dark text-white">
                     User Navigation
@@ -38,10 +43,17 @@ function UserDashboard() {
     }
 
     const userRightSide = () => {
-        return(
+        return (
             <div className="card mb-4">
+                <div className="row">
+                    <div className="col-4">
+                        <div className={"card-img-top"}>
+                            <DPHelper/>
+                        </div>
+                    </div>
+                </div>
                 <h4 className="card-header">
-                    Admin Information
+                    User Information
                 </h4>
                 <ul className="list-group">
                     <li className="list-group-item">
