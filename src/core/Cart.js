@@ -5,17 +5,21 @@ import FlightCard from "./Flights/FlightCard";
 import HotelCard from "./Hotels/HotelCard";
 // import {getAllFlights, getAllHotels} from "./helper/coreapicalls";
 import {loadCart} from "./helper/cartHelper";
+import {createAnOrder} from "./helper/orderHelper";
+import {isAuthenticated} from "../auth/helper";
+import {forEach, map} from "react-bootstrap/cjs/ElementChildren";
+
 // import PaymentB from "./PaymentB";
 
 function Cart() {
     const [products, setProducts] = useState([]);
     const [reload, setReload] = useState(false);
 
+    const userId = isAuthenticated() && isAuthenticated().user._id
+    const token = isAuthenticated() && isAuthenticated().token
+
     useEffect(() => {
         setProducts(loadCart())
-        // console.log("LOAD CART: ", loadCart())
-        // console.log("PRODUCTS IN CART: ", products)
-        // console.log("PRODUCTS LENGTH: ", products.length)
     }, [reload]);
 
 
@@ -76,7 +80,33 @@ function Cart() {
                     </h3>
 
                     <button
-                        onClick={() => {}}
+                        onClick={() => {
+                            const flights = []
+                            const hotels = []
+                            if (products) {
+                                products.forEach((product, index) => {
+                                    if (product.source) {
+                                        flights.push(product);
+                                    } else {
+                                        hotels.push(product);
+                                    }
+                                })
+                            }
+                            console.log("FLIGHTS", flights);
+                            console.log("HOTELS", hotels);
+                            const orderData = {
+                                flights: flights,
+                                hotels: hotels
+                            }
+                            console.log("orderData: ", orderData)
+                            createAnOrder(userId, token, orderData)
+                                .then(response => {
+                                    console.log("CART createAnOrder RESPONSE: ", response);
+                                })
+                                .catch(err => {
+                                    console.log("ERROR: ", err);
+                                })
+                        }}
                         className="btn btn-block btn-outline-success mt-4 mb-2"
                     >
                         Place Order

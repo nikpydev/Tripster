@@ -79,6 +79,25 @@ function HotelCard({
         }
     }
 
+    const getDay = dayNumber => {
+        switch (dayNumber) {
+            case 1:
+                return "Monday"
+            case 2:
+                return "Tuesday"
+            case 3:
+                return "Wednesday"
+            case 4:
+                return "Thursday"
+            case 5:
+                return "Friday"
+            case 6:
+                return "Saturday"
+            default:
+                return "Sunday"
+        }
+    }
+
     return (
         <div className="hotel-card-container-parent">
             <div className={"hotel-card-container"}>
@@ -140,8 +159,21 @@ function HotelCard({
                         <button
                             onClick={() => {
                                 setShowBookNow(!showBookNow);
-                                hotel.checkin_datetime = checkInDate;
-                                hotel.checkout_datetime = checkOutDate;
+                                hotel.checkin_datetime =
+                                    checkInDate.getDate()
+                                    + "/" + checkInDate.getMonth()
+                                    + "/" + checkInDate.getFullYear()
+                                    + " at " + checkInDate.getHours()
+                                    + ":" + checkInDate.getMinutes()
+                                    + " Hrs"
+                                    + " on " + getDay(checkInDate.getDay());
+                                hotel.checkout_datetime = checkOutDate.getDate()
+                                    + "/" + checkOutDate.getMonth()
+                                    + "/" + checkOutDate.getFullYear()
+                                    + " at " + checkOutDate.getHours()
+                                    + ":" + checkOutDate.getMinutes()
+                                    + " Hrs"
+                                    + " on " + getDay(checkOutDate.getDay());
                                 addHotelToCart();
                             }}
                             className="btn btn-block btn-outline-success mt-2 mb-2"
@@ -151,6 +183,16 @@ function HotelCard({
                     </div>
                 )}
 
+                {removeFromCart && (
+                    <div className="stay-details">
+                        <div className="checkin-date">
+                            📅 CHECK-IN DATE & TIME:→ {hotel.checkin_datetime}
+                        </div>
+                        <div className="checkout-date">
+                            📅 CHECK-OUT DATE & TIME:→ {hotel.checkout_datetime}
+                        </div>
+                    </div>
+                )}
             </div>
             <hr/>
         </div>
