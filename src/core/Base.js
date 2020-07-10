@@ -19,7 +19,7 @@ function Base({
                         {description}
                     </p>
                 </div>
-                <div className={className} style={{"minHeight": "100vh"}}>
+                <div className={className} style={{"minHeight": "36vh"}}>
                     {children}
                 </div>
             </div>

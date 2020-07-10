@@ -45,7 +45,7 @@ function UpdateFlight({match}) {
     const preload = productId => {
         getFlight(productId)
             .then(data => {
-                console.log("getFlight: ", data)
+                // console.log("getFlight: ", data)
                 if (data) {
                     if (data.error) {
                         setValues({...values, error: data.error})
@@ -67,7 +67,7 @@ function UpdateFlight({match}) {
                             createdFlight: data.name,
                             didRedirect: false,
                         })
-                        console.log("VALUES: ", values)
+                        // console.log("VALUES: ", values)
                     }
                 }
             })
@@ -89,7 +89,7 @@ function UpdateFlight({match}) {
     }
 
     useEffect(() => {
-        console.log("match.params: ", match.params.flightId);
+        // console.log("match.params: ", match.params.flightId);
         preload(match.params.flightId)
     }, []);
 

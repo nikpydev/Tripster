@@ -1,21 +1,52 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Base from "../core/Base";
 import {Link} from "react-router-dom";
-import {register} from "../auth/helper";
+import {isAuthenticated} from "../auth/helper";
+import {getUser, updateUser} from "./helper/userapicalls";
 
-function Register() {
+function UpdateUser() {
+    const {user: {_id}, token} = isAuthenticated();
+
     const [values, setValues] = useState({
         fName: "",
         lName: "",
         email: "",
         photo: "",
-        password: "",
         error: "",
         success: false,
-        formData: new FormData()
+        formData: ""
     });
 
-    const {fName, lName, email, photo, password, error, success, formData} = values;
+    const {fName, lName, email, photo, error, success, formData} = values;
+
+    // We need to getUser only because simply using isAuthenticated() we'll get the
+    // user details saved within the browser and it might not be up to date.
+    const preload = () => {
+        getUser(_id, token)
+            .then(data => {
+                console.log("UPDATE USER: ", data);
+                if (data) {
+                    if (data.error) {
+                        setValues({
+                            ...values,
+                            error: data.error
+                        })
+                    } else {
+                        setValues({
+                            ...values,
+                            fName: data.fName,
+                            lName: data.lName,
+                            email: data.email,
+                            formData: new FormData()
+                        })
+                    }
+                }
+            })
+    }
+
+    useEffect(() => {
+        preload()
+    }, []);
 
     const handleChange = key => event => {
         const value = key === "photo" ? event.target.files[0] : event.target.value;
@@ -25,21 +56,20 @@ function Register() {
 
     const onSubmit = event => {
         event.preventDefault();
-        setValues({...values, error: undefined});
-        register(formData)
+        setValues({...values, error: ""});
+        updateUser(_id, token, formData)
             .then(data => {
-                console.log("REGISTER USER ATTEMPT: ", data);
+                console.log("UPDATE USER ATTEMPT: ", data);
                 if (data.error) {
                     setValues({...values, error: data.error, success: false})
                 } else {
                     setValues({
                         ...values,
-                        fName: "",
-                        lName: "",
-                        email: "",
-                        password: "",
-                        error: undefined,
-                        success:true
+                        fName: data.fName,
+                        lName: data.lName,
+                        email: data.email,
+                        error: "",
+                        success: true
                     })
                 }
             })
@@ -96,19 +126,8 @@ function Register() {
                                 value={email}
                             />
                         </div>
-                        <div className="form-group">
-                            <label className="text-light">
-                                Password
-                            </label>
-                            <input
-                                className={"form-control"}
-                                type="password"
-                                onChange={handleChange("password")}
-                                value={password}
-                            />
-                        </div>
-                        <button onClick={onSubmit} className="btn btn-success btn-block">
-                            Register
+                        <button onClick={onSubmit} className="btn btn-success btn-block mb-3">
+                            Update Profile
                         </button>
                     </form>
                 </div>
@@ -124,7 +143,8 @@ function Register() {
                         className="alert alert-success"
                         style={{display: success ? "" : "none"}}
                     >
-                        Registration successful. Please <Link to={"/login"}>Login Here</Link>
+                        Updated profile successfully. The changes will be reflected once you login again. Go Back
+                        to <Link to={"/user/dashboard"}>Dashboard</Link>
                     </div>
                 </div>
             </div>
@@ -147,15 +167,29 @@ function Register() {
     }
 
     return (
-        <Base title={"Registration Page"} description={"A page for user to register!"}>
-            {successMessage()}
-            {errorMessage()}
-            {registrationForm()}
-            <p className="text-white text-center">
-                {JSON.stringify(values)}
-            </p>
+        <Base
+            title={"Update Profile Here"}
+            description={"A page for user to update their profile"}
+            className={"container bg-info p-4"}
+        >
+            <Link
+                to={"/admin/dashboard"}
+                className={"btn btn-md btn-dark mb-3"}
+            >
+                User Dashboard
+            </Link>
+            <div className="row bg-dark text-white rounded">
+                <div className="col-md-8 offset-md-2 mt-3">
+                    {successMessage()}
+                    {errorMessage()}
+                    {registrationForm()}
+                    {/*<p className="text-white text-center">*/}
+                    {/*    {JSON.stringify(values)}*/}
+                    {/*</p>*/}
+                </div>
+            </div>
         </Base>
     );
 }
 
-export default Register;
+export default UpdateUser;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./core/Home";
 import Register from "./user/Register";
 import Login from "./user/Login";
@@ -22,8 +22,10 @@ import ManageFlightCategories from "./admin/Flights/ManageFlightCategories";
 import ManageHotelCategories from "./admin/Hotels/ManageHotelCategories";
 import UpdateFlightCategory from "./admin/Flights/UpdateFlightCategory";
 import UpdateHotelCategory from "./admin/Hotels/UpdateHotelCategory";
+import UpdateUser from "./user/UpdateUser";
+import ManageOrders from "./user/ManageOrders";
 
-function Routes(props) {
+function Routes() {
     return (
         <BrowserRouter>
             <Switch>
@@ -44,9 +46,13 @@ function Routes(props) {
                 <AdminRoute path={"/admin/flight/update/:flightId"} exact component={UpdateFlight}/>
                 <AdminRoute path={"/admin/flight-categories"} exact component={ManageFlightCategories}/>
                 <AdminRoute path={"/admin/hotel-categories"} exact component={ManageHotelCategories}/>
-                <AdminRoute path={"/admin/flight-category/update/:flightCategoryId"} exact component={UpdateFlightCategory}/>
-                <AdminRoute path={"/admin/hotel-category/update/:hotelCategoryId"} exact component={UpdateHotelCategory}/>
+                <AdminRoute path={"/admin/flight-category/update/:flightCategoryId"} exact
+                            component={UpdateFlightCategory}/>
+                <AdminRoute path={"/admin/hotel-category/update/:hotelCategoryId"} exact
+                            component={UpdateHotelCategory}/>
                 <PrivateRoute path={"/user/dashboard"} exact component={UserDashboard}/>
+                <PrivateRoute path={"/user/update/profile"} exact component={UpdateUser}/>
+                <PrivateRoute path={"/user/orders"} exact component={ManageOrders}/>
             </Switch>
         </BrowserRouter>
     );

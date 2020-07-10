@@ -3,8 +3,13 @@ import Base from "../core/Base";
 import {isAuthenticated} from "../auth/helper";
 import {Link} from "react-router-dom";
 
-function AdminDashboard(props) {
-    const {user : {fName, lName, email, role}} = isAuthenticated()
+function AdminDashboard() {
+    const {user : {
+        fName,
+        lName,
+        email,
+        // role
+    }} = isAuthenticated()
 
     const adminLeftSide = () => {
         return(
@@ -101,10 +106,10 @@ function AdminDashboard(props) {
             description={"Manage all of your products here."}
         >
             <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                     {adminLeftSide()}
                 </div>
-                <div className="col-9">
+                <div className="col-8">
                     {adminRightSide()}
                 </div>
             </div>

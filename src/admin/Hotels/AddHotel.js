@@ -4,7 +4,7 @@ import {createHotel, getAllHotelCategories} from "../helper/adminapicalls";
 import Base from "../../core/Base";
 import {Link} from "react-router-dom";
 
-function AddHotel(props) {
+function AddHotel() {
     const {user: {_id}, token} = isAuthenticated();
     const [values, setValues] = useState({
         brand: "",
