@@ -1,4 +1,5 @@
 # Tripster-Frontend
+### This is a MERN Stack Web Application. A user can create an account, signin, book flights and hotels, and make payment using BrainTree's payment gateway. The app has an admin section where an admin can manage the flights and hotels using CRUD (Create, Read, Update, and Delete) operations. The user can view their purchase history along with the transaction and the order ID.
 ## Requirements
 ### You need to have the following things installed in your system before you can run this:-
 #### 1. NodeJS
