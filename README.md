@@ -1,8 +1,14 @@
 # Tripster-Frontend
+## Requirements
+### You need to have the following things installed in your system before you can run this:-
+#### 1. NodeJS
+#### 2. NPM
+#### 3. MongoDB
+### You will need to run the backend for this project at https://github.com/nikpydev/Tripster-Backend
 ## Usage
-### You'll need to have MongoDB installed on your system. Then you will need to run the backend for this project ( https://github.com/nikpydev/Tripster-Backend ). Then you can run the following command to get this project up and running.
+### Run the following commands to get this project up and running.
 #### npm install (this will install all the dependencies of the project and create your node-modules folder)
-#### npm start
+#### npm start (this will run the 'start' script inside your package.json file)
 
 ![](public/tripster1.png)
 ![](public/tripster3.png)
