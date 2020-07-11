@@ -63,7 +63,67 @@ function Flight() {
         <Base title={"Flights Section"} description={"All the flights will be listed here."}>
             <div className="flight-container row">
                 <div className="sidebar col-2">
-                    Filters Section
+                    <hr/>
+                    <h5 className="text-center">
+                        APPLY FILTERS
+                    </h5>
+                    <hr/>
+                    <h5 className={"text-center"}>
+                        Filter by Timings
+                        <button
+                            className={"btn btn-block btn-outline-danger mt-2"}
+                        >
+                            Clear Filter
+                        </button>
+                    </h5>
+                    <hr/>
+                    <form action="#">
+                        <p>
+                            <label>
+                                <input className="with-gap" name="group1" type="radio"/>
+                                <span
+                                    style={{"paddingLeft": "1rem"}}
+                                    className={"text-white"}
+                                >
+                                    Early Morning
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input className="with-gap" name="group1" type="radio"/>
+                                <span
+                                    style={{"paddingLeft": "1rem"}}
+                                    className={"text-white"}
+                                >
+                                    Afternoon
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input className="with-gap" name="group1" type="radio"/>
+                                <span
+                                    style={{"paddingLeft": "1rem"}}
+                                    className={"text-white"}
+                                >
+                                    Evening
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input className="with-gap" name="group1" type="radio"/>
+                                <span
+                                    style={{"paddingLeft": "1rem"}}
+                                    className={"text-white"}
+                                >
+                                    Night
+                                </span>
+                            </label>
+                        </p>
+                    </form>
+                    <hr/>
                 </div>
 
                 <div className="flight-content col-10">

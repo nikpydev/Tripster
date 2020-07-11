@@ -144,7 +144,7 @@ function UpdateUser() {
                         style={{display: success ? "" : "none"}}
                     >
                         Updated profile successfully. The changes will be reflected once you login again. Go Back
-                        to <Link to={"/user/dashboard"}>Dashboard</Link>
+                        to <Link to={isAuthenticated().user.role < 1 ? "/user/dashboard" : "/admin/dashboard"}>Dashboard</Link>
                     </div>
                 </div>
             </div>
@@ -173,10 +173,10 @@ function UpdateUser() {
             className={"container bg-info p-4"}
         >
             <Link
-                to={"/admin/dashboard"}
+                to={isAuthenticated().user.role < 1 ? "/user/dashboard" : "/admin/dashboard"}
                 className={"btn btn-md btn-dark mb-3"}
             >
-                User Dashboard
+                {isAuthenticated().user.role < 1 ? "User Dashboard" : "Admin Dashboard"}
             </Link>
             <div className="row bg-dark text-white rounded">
                 <div className="col-md-8 offset-md-2 mt-3">

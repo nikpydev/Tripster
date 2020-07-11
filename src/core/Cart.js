@@ -4,7 +4,7 @@ import Base from "./Base";
 import FlightCard from "./Flights/FlightCard";
 import HotelCard from "./Hotels/HotelCard";
 // import {getAllFlights, getAllHotels} from "./helper/coreapicalls";
-import {loadCart} from "./helper/cartHelper";
+import {loadCart, emptyOutCart} from "./helper/cartHelper";
 import {createAnOrder} from "./helper/orderHelper";
 import {isAuthenticated} from "../auth/helper";
 import {forEach, map} from "react-bootstrap/cjs/ElementChildren";
@@ -92,13 +92,13 @@ function Cart() {
                                     }
                                 })
                             }
-                            console.log("FLIGHTS", flights);
-                            console.log("HOTELS", hotels);
+                            // console.log("FLIGHTS", flights);
+                            // console.log("HOTELS", hotels);
                             const orderData = {
                                 flights: flights,
                                 hotels: hotels
                             }
-                            console.log("orderData: ", orderData)
+                            // console.log("orderData: ", orderData)
                             createAnOrder(userId, token, orderData)
                                 .then(response => {
                                     console.log("CART createAnOrder RESPONSE: ", response);
@@ -106,6 +106,10 @@ function Cart() {
                                 .catch(err => {
                                     console.log("ERROR: ", err);
                                 })
+                            emptyOutCart(() => {
+                                setReload(!reload);
+                                console.log("Did we get a crash?")
+                            });
                         }}
                         className="btn btn-block btn-outline-success mt-4 mb-2"
                     >

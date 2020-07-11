@@ -23,3 +23,13 @@ export const getAllFlights = () => {
             console.log("getAllFlights() Error: ", err);
         })
 }
+
+export const getAllHotelCities = () => {
+    return fetch(`${API}/hotels/cities`)
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}

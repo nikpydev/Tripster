@@ -32,8 +32,8 @@ function ManageOrders() {
     return (
         <Base title="Welcome User" description="View orders here">
             <h2 className="mb-4">All Orders:</h2>
-            <Link className="btn btn-info" to={`/user/dashboard`}>
-                <span className="">User Dashboard</span>
+            <Link className="btn btn-info" to={isAuthenticated().user.role < 1 ? `/user/dashboard` : `/admin/dashboard`}>
+                <span className="">Admin Dashboard</span>
             </Link>
             <div className="row">
                 <div className="col-12">
@@ -88,7 +88,7 @@ function ManageOrders() {
                                             "fontSize": "1.5rem",
                                             "paddingRight": "1.5rem"
                                         }}>
-                                            Flight Name:
+                                            Hotel Name:
                                         </span>
                                         {hotelOrder.brand} {hotelOrder.name}
                                     </h3>

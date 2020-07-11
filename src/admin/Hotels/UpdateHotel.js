@@ -265,7 +265,7 @@ function UpdateHotel({match}) {
                 onClick={handleSubmit}
                 className="btn btn-outline-success mb-3"
             >
-                Create Hotel
+                Update Hotel
             </button>
         </form>
     );

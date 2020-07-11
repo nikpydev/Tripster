@@ -2,6 +2,7 @@ import React from 'react';
 import Base from "../core/Base";
 import {isAuthenticated} from "../auth/helper";
 import {Link} from "react-router-dom";
+import DPHelper from "./helper/DPHelper";
 
 function AdminDashboard() {
     const {user : {
@@ -18,6 +19,17 @@ function AdminDashboard() {
                     Admin Navigation
                 </h4>
                 <ul className="list-group">
+                    <li className="list-group-item">
+                        <Link to={"/user/update/profile"} className={"nav-link text-success"}>
+                            Edit Profile
+                        </Link>
+                    </li>
+
+                    <li className="list-group-item">
+                        <Link to={"/user/orders"} className={"nav-link text-success"}>
+                            Manage Your Orders
+                        </Link>
+                    </li>
                     <li className="list-group-item">
                         <Link to={"/admin/create/flight-category"} className={"nav-link text-success"}>
                             Create Flight Categories
@@ -72,6 +84,13 @@ function AdminDashboard() {
     const adminRightSide = () => {
         return(
             <div className="card mb-4">
+                <div className="row">
+                    <div className="col-4">
+                        <div className={"card-img-top"}>
+                            <DPHelper/>
+                        </div>
+                    </div>
+                </div>
                 <h4 className="card-header">
                     Admin Information
                 </h4>

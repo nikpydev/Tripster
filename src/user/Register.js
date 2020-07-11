@@ -139,7 +139,7 @@ function Register() {
                         className="alert alert-danger"
                         style={{display: error ? "" : "none"}}
                     >
-                        {error}
+                        {error ? "All fields are required" : ""}
                     </div>
                 </div>
             </div>
