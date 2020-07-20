@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Tripster/static/css/main.987f611c.chunk.css",
-    "main.js": "/Tripster/static/js/main.40f86350.chunk.js",
-    "main.js.map": "/Tripster/static/js/main.40f86350.chunk.js.map",
+    "main.js": "/Tripster/static/js/main.5a1af1d1.chunk.js",
+    "main.js.map": "/Tripster/static/js/main.5a1af1d1.chunk.js.map",
     "runtime-main.js": "/Tripster/static/js/runtime-main.6c37b8ce.js",
     "runtime-main.js.map": "/Tripster/static/js/runtime-main.6c37b8ce.js.map",
     "static/css/2.c5dfd2c8.chunk.css": "/Tripster/static/css/2.c5dfd2c8.chunk.css",
     "static/js/2.0ad9b58e.chunk.js": "/Tripster/static/js/2.0ad9b58e.chunk.js",
     "static/js/2.0ad9b58e.chunk.js.map": "/Tripster/static/js/2.0ad9b58e.chunk.js.map",
     "index.html": "/Tripster/index.html",
-    "precache-manifest.9510febb93775556cb720ca9ff3ab809.js": "/Tripster/precache-manifest.9510febb93775556cb720ca9ff3ab809.js",
+    "precache-manifest.3ebc31ac78356f03536651bd57a69f4b.js": "/Tripster/precache-manifest.3ebc31ac78356f03536651bd57a69f4b.js",
     "service-worker.js": "/Tripster/service-worker.js",
     "static/css/2.c5dfd2c8.chunk.css.map": "/Tripster/static/css/2.c5dfd2c8.chunk.css.map",
     "static/css/main.987f611c.chunk.css.map": "/Tripster/static/css/main.987f611c.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.c5dfd2c8.chunk.css",
     "static/js/2.0ad9b58e.chunk.js",
     "static/css/main.987f611c.chunk.css",
-    "static/js/main.40f86350.chunk.js"
+    "static/js/main.5a1af1d1.chunk.js"
   ]
 }

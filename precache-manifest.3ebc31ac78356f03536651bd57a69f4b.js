@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1b46d7f34dd5f460b8ba24dead861826",
+    "revision": "6390fbac3c0217f98e80fdb45b8047d8",
     "url": "/Tripster/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Tripster/static/css/2.c5dfd2c8.chunk.css"
   },
   {
-    "revision": "a9b51dedd8e7253cef64",
+    "revision": "d10b824da08faf5934a5",
     "url": "/Tripster/static/css/main.987f611c.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Tripster/static/js/2.0ad9b58e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a9b51dedd8e7253cef64",
-    "url": "/Tripster/static/js/main.40f86350.chunk.js"
+    "revision": "d10b824da08faf5934a5",
+    "url": "/Tripster/static/js/main.5a1af1d1.chunk.js"
   },
   {
     "revision": "cb38386a4ec1b24deecc",
