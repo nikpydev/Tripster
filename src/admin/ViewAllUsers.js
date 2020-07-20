@@ -33,12 +33,22 @@ const ViewAllUsers = () => {
       <hr />
 
       {users.map((user, index) => {
-        const { _id, fName, lName } = user;
+        const { _id, fName, lName, role } = user;
         return (
           <div className="text-center" key={index}>
             <p>First Name: {fName}</p>
             <p>Last Name: {lName}</p>
             <p>User ID: {_id}</p>
+            <p>
+              Admin Priviledges:{" "}
+              <span
+                className={
+                  role === 1 ? "badge badge-success" : "badge badge-danger"
+                }
+              >
+                {role === 1 ? "GRANTED" : "DENIED"}
+              </span>
+            </p>
             <hr />
           </div>
         );
