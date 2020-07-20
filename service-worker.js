@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Tripster/precache-manifest.be7c32336acb787b80d5a86ad6ce97da.js"
+  "/Tripster/precache-manifest.9510febb93775556cb720ca9ff3ab809.js"
 );
 
 self.addEventListener('message', (event) => {
