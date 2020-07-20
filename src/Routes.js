@@ -29,7 +29,7 @@ function Routes() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path={"/"} exact component={Home}/>
+                <Route path={"/Tripster"} exact component={Home}/>
                 <Route path={"/flights"} exact component={Flight}/>
                 <Route path={"/hotels"} exact component={Hotel}/>
                 <Route path={"/register"} exact component={Register}/>
