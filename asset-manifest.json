@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Tripster/static/css/main.987f611c.chunk.css",
+    "main.js": "/Tripster/static/js/main.1ec72d76.chunk.js",
+    "main.js.map": "/Tripster/static/js/main.1ec72d76.chunk.js.map",
+    "runtime-main.js": "/Tripster/static/js/runtime-main.6c37b8ce.js",
+    "runtime-main.js.map": "/Tripster/static/js/runtime-main.6c37b8ce.js.map",
+    "static/css/2.c5dfd2c8.chunk.css": "/Tripster/static/css/2.c5dfd2c8.chunk.css",
+    "static/js/2.9b8db5e8.chunk.js": "/Tripster/static/js/2.9b8db5e8.chunk.js",
+    "static/js/2.9b8db5e8.chunk.js.map": "/Tripster/static/js/2.9b8db5e8.chunk.js.map",
+    "index.html": "/Tripster/index.html",
+    "precache-manifest.be7c32336acb787b80d5a86ad6ce97da.js": "/Tripster/precache-manifest.be7c32336acb787b80d5a86ad6ce97da.js",
+    "service-worker.js": "/Tripster/service-worker.js",
+    "static/css/2.c5dfd2c8.chunk.css.map": "/Tripster/static/css/2.c5dfd2c8.chunk.css.map",
+    "static/css/main.987f611c.chunk.css.map": "/Tripster/static/css/main.987f611c.chunk.css.map",
+    "static/js/2.9b8db5e8.chunk.js.LICENSE.txt": "/Tripster/static/js/2.9b8db5e8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c37b8ce.js",
+    "static/css/2.c5dfd2c8.chunk.css",
+    "static/js/2.9b8db5e8.chunk.js",
+    "static/css/main.987f611c.chunk.css",
+    "static/js/main.1ec72d76.chunk.js"
+  ]
+}
