@@ -73,7 +73,12 @@ function AdminDashboard() {
                     </li>
                     <li className="list-group-item">
                         <Link to={"/admin/orders"} className={"nav-link text-success"}>
-                            Manage Orders
+                            View All Orders
+                        </Link>
+                    </li>
+                    <li className="list-group-item">
+                        <Link to={"/admin/users/all"} className={"nav-link text-success"}>
+                            View All Users
                         </Link>
                     </li>
                 </ul>

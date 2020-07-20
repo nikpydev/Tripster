@@ -1,5 +1,5 @@
-import React from 'react';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
 import Register from "./user/Register";
 import Login from "./user/Login";
@@ -24,38 +24,84 @@ import UpdateFlightCategory from "./admin/Flights/UpdateFlightCategory";
 import UpdateHotelCategory from "./admin/Hotels/UpdateHotelCategory";
 import UpdateUser from "./user/UpdateUser";
 import ManageOrders from "./user/ManageOrders";
+import ViewAllOrders from "./admin/ViewAllOrders";
+import ViewAllUsers from "./admin/ViewAllUsers";
 
 function Routes() {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route path={"/Tripster"} exact component={Home}/>
-                <Route path={"/flights"} exact component={Flight}/>
-                <Route path={"/hotels"} exact component={Hotel}/>
-                <Route path={"/register"} exact component={Register}/>
-                <Route path={"/login"} exact component={Login}/>
-                <Route path={"/cart"} exact component={Cart}/>
-                <AdminRoute path={"/admin/dashboard"} exact component={AdminDashboard}/>
-                <AdminRoute path={"/admin/create/flight-category"} exact component={AddFlightCategory}/>
-                <AdminRoute path={"/admin/create/hotel-category"} exact component={AddHotelCategory}/>
-                <AdminRoute path={"/admin/create/hotel"} exact component={AddHotel}/>
-                <AdminRoute path={"/admin/create/flight"} exact component={AddFlight}/>
-                <AdminRoute path={"/admin/hotels"} exact component={ManageHotels}/>
-                <AdminRoute path={"/admin/flights"} exact component={ManageFlights}/>
-                <AdminRoute path={"/admin/hotel/update/:hotelId"} exact component={UpdateHotel}/>
-                <AdminRoute path={"/admin/flight/update/:flightId"} exact component={UpdateFlight}/>
-                <AdminRoute path={"/admin/flight-categories"} exact component={ManageFlightCategories}/>
-                <AdminRoute path={"/admin/hotel-categories"} exact component={ManageHotelCategories}/>
-                <AdminRoute path={"/admin/flight-category/update/:flightCategoryId"} exact
-                            component={UpdateFlightCategory}/>
-                <AdminRoute path={"/admin/hotel-category/update/:hotelCategoryId"} exact
-                            component={UpdateHotelCategory}/>
-                <PrivateRoute path={"/user/dashboard"} exact component={UserDashboard}/>
-                <PrivateRoute path={"/user/update/profile"} exact component={UpdateUser}/>
-                <PrivateRoute path={"/user/orders"} exact component={ManageOrders}/>
-            </Switch>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path={"/Tripster"} exact component={Home} />
+        <Route path={"/flights"} exact component={Flight} />
+        <Route path={"/hotels"} exact component={Hotel} />
+        <Route path={"/register"} exact component={Register} />
+        <Route path={"/login"} exact component={Login} />
+        <Route path={"/cart"} exact component={Cart} />
+        <AdminRoute
+          path={"/admin/dashboard"}
+          exact
+          component={AdminDashboard}
+        />
+        <AdminRoute
+          path={"/admin/create/flight-category"}
+          exact
+          component={AddFlightCategory}
+        />
+        <AdminRoute
+          path={"/admin/create/hotel-category"}
+          exact
+          component={AddHotelCategory}
+        />
+        <AdminRoute path={"/admin/create/hotel"} exact component={AddHotel} />
+        <AdminRoute path={"/admin/create/flight"} exact component={AddFlight} />
+        <AdminRoute path={"/admin/hotels"} exact component={ManageHotels} />
+        <AdminRoute path={"/admin/flights"} exact component={ManageFlights} />
+        <AdminRoute
+          path={"/admin/hotel/update/:hotelId"}
+          exact
+          component={UpdateHotel}
+        />
+        <AdminRoute
+          path={"/admin/flight/update/:flightId"}
+          exact
+          component={UpdateFlight}
+        />
+        <AdminRoute
+          path={"/admin/flight-categories"}
+          exact
+          component={ManageFlightCategories}
+        />
+        <AdminRoute
+          path={"/admin/hotel-categories"}
+          exact
+          component={ManageHotelCategories}
+        />
+        <AdminRoute
+          path={"/admin/flight-category/update/:flightCategoryId"}
+          exact
+          component={UpdateFlightCategory}
+        />
+        <AdminRoute
+          path={"/admin/hotel-category/update/:hotelCategoryId"}
+          exact
+          component={UpdateHotelCategory}
+        />
+        <AdminRoute path={"/admin/orders"} exact component={ViewAllOrders} />
+        <PrivateRoute
+          path={"/user/dashboard"}
+          exact
+          component={UserDashboard}
+        />
+        <AdminRoute path={"/admin/users/all"} exact component={ViewAllUsers}/>
+        <PrivateRoute
+          path={"/user/update/profile"}
+          exact
+          component={UpdateUser}
+        />
+        <PrivateRoute path={"/user/orders"} exact component={ManageOrders} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default Routes;
