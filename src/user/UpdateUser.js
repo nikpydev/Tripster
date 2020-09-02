@@ -144,7 +144,7 @@ function UpdateUser() {
                         style={{display: success ? "" : "none"}}
                     >
                         Updated profile successfully. The changes will be reflected once you login again. Go Back
-                        to <Link to={isAuthenticated().user.role < 1 ? "/user/dashboard" : "/admin/dashboard"}>Dashboard</Link>
+                        to <Link to={isAuthenticated().user.role < 1 ? "/Tripster/user/dashboard" : "/Tripster/admin/dashboard"}>Dashboard</Link>
                     </div>
                 </div>
             </div>
