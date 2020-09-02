@@ -45,7 +45,7 @@ function ManageHotels() {
     return (
         <Base title="Welcome admin" description="Manage hotels here">
             <h2 className="mb-4">All hotels:</h2>
-            <Link className="btn btn-info" to={`/admin/dashboard`}>
+            <Link className="btn btn-info" to={`/Tripster/admin/dashboard`}>
                 <span className="">Admin Home</span>
             </Link>
             <div className="row">
@@ -61,7 +61,7 @@ function ManageHotels() {
                                 <div className="col-4">
                                     <Link
                                         className="btn btn-success"
-                                        to={`/admin/hotel/update/${hotel._id}`}
+                                        to={`/Tripster/admin/hotel/update/${hotel._id}`}
                                     >
                                         <span
                                             className=""

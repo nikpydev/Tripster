@@ -40,7 +40,7 @@ function ManageHotelCategories() {
     return (
         <Base title="Welcome admin" description="Manage hotelCategories here">
             <h2 className="mb-4">All products:</h2>
-            <Link className="btn btn-info" to={`/admin/dashboard`}>
+            <Link className="btn btn-info" to={`/Tripster/admin/dashboard`}>
                 <span className="">Admin Home</span>
             </Link>
             <div className="row">

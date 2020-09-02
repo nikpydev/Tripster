@@ -14,7 +14,7 @@ function AddHotelCategory() {
     const goBack = () => {
         return (
             <div className="mt-5">
-                <Link to={"/admin/dashboard"} className={"btn btn-sm btn-success mb-3"}>
+                <Link to={"/Tripster/admin/dashboard"} className={"btn btn-sm btn-success mb-3"}>
                     Admin Home
                 </Link>
             </div>

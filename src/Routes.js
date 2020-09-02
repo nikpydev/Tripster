@@ -32,73 +32,73 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <Route path={"/Tripster"} exact component={Home} />
-        <Route path={"/flights"} exact component={Flight} />
-        <Route path={"/hotels"} exact component={Hotel} />
-        <Route path={"/register"} exact component={Register} />
-        <Route path={"/login"} exact component={Login} />
-        <Route path={"/cart"} exact component={Cart} />
+        <Route path={"/Tripster/flights"} exact component={Flight} />
+        <Route path={"/Tripster/hotels"} exact component={Hotel} />
+        <Route path={"/Tripster/register"} exact component={Register} />
+        <Route path={"/Tripster/login"} exact component={Login} />
+        <Route path={"/Tripster/cart"} exact component={Cart} />
         <AdminRoute
-          path={"/admin/dashboard"}
+          path={"/Tripster/admin/dashboard"}
           exact
           component={AdminDashboard}
         />
         <AdminRoute
-          path={"/admin/create/flight-category"}
+          path={"/Tripster/admin/create/flight-category"}
           exact
           component={AddFlightCategory}
         />
         <AdminRoute
-          path={"/admin/create/hotel-category"}
+          path={"/Tripster/admin/create/hotel-category"}
           exact
           component={AddHotelCategory}
         />
-        <AdminRoute path={"/admin/create/hotel"} exact component={AddHotel} />
-        <AdminRoute path={"/admin/create/flight"} exact component={AddFlight} />
-        <AdminRoute path={"/admin/hotels"} exact component={ManageHotels} />
-        <AdminRoute path={"/admin/flights"} exact component={ManageFlights} />
+        <AdminRoute path={"/Tripster/admin/create/hotel"} exact component={AddHotel} />
+        <AdminRoute path={"/Tripster/admin/create/flight"} exact component={AddFlight} />
+        <AdminRoute path={"/Tripster/admin/hotels"} exact component={ManageHotels} />
+        <AdminRoute path={"/Tripster/admin/flights"} exact component={ManageFlights} />
         <AdminRoute
-          path={"/admin/hotel/update/:hotelId"}
+          path={"/Tripster/admin/hotel/update/:hotelId"}
           exact
           component={UpdateHotel}
         />
         <AdminRoute
-          path={"/admin/flight/update/:flightId"}
+          path={"/Tripster/admin/flight/update/:flightId"}
           exact
           component={UpdateFlight}
         />
         <AdminRoute
-          path={"/admin/flight-categories"}
+          path={"/Tripster/admin/flight-categories"}
           exact
           component={ManageFlightCategories}
         />
         <AdminRoute
-          path={"/admin/hotel-categories"}
+          path={"/Tripster/admin/hotel-categories"}
           exact
           component={ManageHotelCategories}
         />
         <AdminRoute
-          path={"/admin/flight-category/update/:flightCategoryId"}
+          path={"/Tripster/admin/flight-category/update/:flightCategoryId"}
           exact
           component={UpdateFlightCategory}
         />
         <AdminRoute
-          path={"/admin/hotel-category/update/:hotelCategoryId"}
+          path={"/Tripster/admin/hotel-category/update/:hotelCategoryId"}
           exact
           component={UpdateHotelCategory}
         />
-        <AdminRoute path={"/admin/orders"} exact component={ViewAllOrders} />
+        <AdminRoute path={"/Tripster/admin/orders"} exact component={ViewAllOrders} />
         <PrivateRoute
-          path={"/user/dashboard"}
+          path={"/Tripster/user/dashboard"}
           exact
           component={UserDashboard}
         />
-        <AdminRoute path={"/admin/users/all"} exact component={ViewAllUsers}/>
+        <AdminRoute path={"/Tripster/admin/users/all"} exact component={ViewAllUsers} />
         <PrivateRoute
-          path={"/user/update/profile"}
+          path={"/Tripster/user/update/profile"}
           exact
           component={UpdateUser}
         />
-        <PrivateRoute path={"/user/orders"} exact component={ManageOrders} />
+        <PrivateRoute path={"/Tripster/user/orders"} exact component={ManageOrders} />
       </Switch>
     </BrowserRouter>
   );

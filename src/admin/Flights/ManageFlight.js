@@ -45,7 +45,7 @@ function ManageFlights() {
     return (
         <Base title="Welcome admin" description="Manage flights here">
             <h2 className="mb-4">All flights:</h2>
-            <Link className="btn btn-info" to={`/admin/dashboard`}>
+            <Link className="btn btn-info" to={`/Tripster/admin/dashboard`}>
                 <span className="">Admin Home</span>
             </Link>
             <div className="row">
@@ -61,7 +61,7 @@ function ManageFlights() {
                                 <div className="col-4">
                                     <Link
                                         className="btn btn-success"
-                                        to={`/admin/flight/update/${flight._id}`}
+                                        to={`/Tripster/admin/flight/update/${flight._id}`}
                                     >
                                         <span
                                             className=""

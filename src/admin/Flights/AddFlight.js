@@ -291,7 +291,7 @@ function AddFlight() {
             className={"container bg-info p-4"}
         >
             <Link
-                to={"/admin/dashboard"}
+                to={"/Tripster/admin/dashboard"}
                 className={"btn btn-md btn-dark mb-3"}
             >
                 Admin Home

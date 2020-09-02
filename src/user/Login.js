@@ -47,9 +47,9 @@ function Login(props) {
     const performRedirect = () => {
         if (didRedirect) {
             if (user && user.role === 1) {
-                return <Redirect to={"/admin/dashboard"}/>
+                return <Redirect to={"/Tripster/admin/dashboard"}/>
             } else {
-                return <Redirect to={"/user/dashboard"}/>
+                return <Redirect to={"/Tripster/user/dashboard"}/>
             }
         }
     }

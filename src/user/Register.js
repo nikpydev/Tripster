@@ -124,7 +124,7 @@ function Register() {
                         className="alert alert-success"
                         style={{display: success ? "" : "none"}}
                     >
-                        Registration successful. Please <Link to={"/login"}>Login Here</Link>
+                        Registration successful. Please <Link to={"/Tripster/login"}>Login Here</Link>
                     </div>
                 </div>
             </div>

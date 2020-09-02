@@ -26,13 +26,13 @@ function UserDashboard() {
                 <ul className="list-group">
 
                     <li className="list-group-item">
-                        <Link to={"/user/update/profile"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/user/update/profile"} className={"nav-link text-success"}>
                             Edit Profile
                         </Link>
                     </li>
 
                     <li className="list-group-item">
-                        <Link to={"/user/orders"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/user/orders"} className={"nav-link text-success"}>
                             Manage Your Orders
                         </Link>
                     </li>

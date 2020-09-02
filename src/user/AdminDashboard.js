@@ -20,64 +20,64 @@ function AdminDashboard() {
                 </h4>
                 <ul className="list-group">
                     <li className="list-group-item">
-                        <Link to={"/user/update/profile"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/user/update/profile"} className={"nav-link text-success"}>
                             Edit Profile
                         </Link>
                     </li>
 
                     <li className="list-group-item">
-                        <Link to={"/user/orders"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/user/orders"} className={"nav-link text-success"}>
                             Manage Your Orders
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/create/flight-category"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/create/flight-category"} className={"nav-link text-success"}>
                             Create Flight Categories
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/flight-categories"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/flight-categories"} className={"nav-link text-success"}>
                             Manage Flight Categories
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/create/flight"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/create/flight"} className={"nav-link text-success"}>
                             Create Flights
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/flights"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/flights"} className={"nav-link text-success"}>
                             Manage Flights
                         </Link>
                     </li>
 
                     <li className="list-group-item">
-                        <Link to={"/admin/create/hotel-category"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/create/hotel-category"} className={"nav-link text-success"}>
                             Create Hotel Categories
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/hotel-categories"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/hotel-categories"} className={"nav-link text-success"}>
                             Manage Hotel Categories
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/create/hotel"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/create/hotel"} className={"nav-link text-success"}>
                             Create Hotels
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/hotels"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/hotels"} className={"nav-link text-success"}>
                             Manage Hotels
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/orders"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/orders"} className={"nav-link text-success"}>
                             View All Orders
                         </Link>
                     </li>
                     <li className="list-group-item">
-                        <Link to={"/admin/users/all"} className={"nav-link text-success"}>
+                        <Link to={"/Tripster/admin/users/all"} className={"nav-link text-success"}>
                             View All Users
                         </Link>
                     </li>
