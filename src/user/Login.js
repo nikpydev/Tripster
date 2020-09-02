@@ -6,7 +6,7 @@ import {login, authenticate, isAuthenticated} from "../auth/helper";
 
 function Login(props) {
     const [values, setValues] = useState({
-        email: "a@nikhil.com",
+        email: "darknikrepo@gmail.com",
         password: "123456",
         error: undefined,
         loading: false,
