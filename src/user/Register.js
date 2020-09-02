@@ -53,7 +53,7 @@ function Register() {
             <div className={"row"}>
                 <div className="col-md-6 offset-sm-3 text-left">
                     <form>
-                        <span>Post photo</span>
+                        {/* <span>Post photo</span>
                         <div className="form-group">
                             <label className="btn btn-block btn-success">
                                 <input
@@ -64,7 +64,7 @@ function Register() {
                                     placeholder="choose a file"
                                 />
                             </label>
-                        </div>
+                        </div> */}
                         <div className="form-group">
                             <label className="text-light">
                                 First Name

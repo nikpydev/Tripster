@@ -160,7 +160,7 @@ function UpdateHotel({match}) {
 
     const createHotelForm = () => (
         <form>
-            <span>Post photo</span>
+            {/* <span>Post photo</span>
             <div className="form-group">
                 <label className="btn btn-block btn-success">
                     <input
@@ -171,8 +171,8 @@ function UpdateHotel({match}) {
                         placeholder="choose a file"
                     />
                 </label>
-            </div>
-            <div className="form-group">
+            </div> */}
+            <div className="form-group mt-3">
                 <input
                     onChange={handleChange("brand")}
                     name="brand"
